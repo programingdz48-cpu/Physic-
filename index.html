@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>درس تفاعلي: المعلم في المستوي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --success-border: #86efac;
+      --error: #ea580c;
+      --error-light: #fff7ed;
+      --error-border: #fdba74;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      padding: 16px 12px 32px;
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    header {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topic-badge {
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .sound-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .sound-btn:hover {
+      background: #e2e8f0;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-top: 4px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      height: 100%;
+      width: 25%;
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Steps Indicators */
+    .steps-pills {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .step-pill {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      padding: 4px 2px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .step-pill.active {
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
+    .step-pill.completed {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    /* Lesson Card */
+    .lesson-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: none;
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    .lesson-card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Step Header */
+    .step-header {
+      margin-bottom: 14px;
+    }
+
+    .step-number-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Concept Explanation Box */
+    .concept-box {
+      background: #f8fafc;
+      border-right: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 14px;
+      font-size: 0.92rem;
+      color: #334155;
+      margin-bottom: 16px;
+      line-height: 1.65;
+    }
+
+    .concept-box strong {
+      color: var(--text-main);
+    }
+
+    .badge-term {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Interactive Canvas Area */
+    .visual-wrapper {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      touch-action: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .canvas-hud {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e293b;
+      box-shadow: var(--shadow-sm);
+      direction: ltr;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .canvas-hud span.coord-label {
+      direction: rtl;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    /* Question & Options Area */
+    .question-box {
+      margin-top: 10px;
+    }
+
+    .question-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    .option-btn {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: right;
+      font-family: inherit;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #93c5fd;
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .option-btn.correct {
+      background: var(--success-light) !important;
+      border-color: var(--success) !important;
+      color: #14532d !important;
+    }
+
+    .option-btn.wrong {
+      background: var(--error-light) !important;
+      border-color: var(--error) !important;
+      color: #7c2d12 !important;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+      opacity: 0.9;
+    }
+
+    .option-badge {
+      font-size: 0.85rem;
+      font-weight: 800;
+      direction: ltr;
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: #334155;
+    }
+
+    .option-btn.correct .option-badge {
+      background: #bbf7d0;
+      color: #14532d;
+    }
+
+    .option-btn.wrong .option-badge {
+      background: #fed7aa;
+      color: #9a3412;
+    }
+
+    /* Feedback & Hints */
+    .feedback-box {
+      display: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      animation: popIn 0.25s ease-out;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .feedback-box.show {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feedback-box.hint {
+      background: var(--error-light);
+      border: 1px solid var(--error-border);
+      color: #9a3412;
+    }
+
+    .feedback-box.success {
+      background: var(--success-light);
+      border: 1px solid var(--success-border);
+      color: #15803d;
+    }
+
+    .feedback-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    /* Action Buttons (Next / Continue) */
+    .actions-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e1;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    /* Directional Controls for Step 3 */
+    .controls-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .controls-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dpad-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 220px;
+      margin: 0 auto 12px;
+      gap: 8px;
+    }
+
+    .dpad-btn {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 4px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      transition: all 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dpad-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .dpad-btn:active {
+      transform: scale(0.94);
+      background: #dbeafe;
+    }
+
+    .dpad-btn .arrow-icon {
+      font-size: 1.15rem;
+    }
+
+    .dpad-empty {
+      visibility: hidden;
+    }
+
+    .step3-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Shake Animation for Wrong Answers */
+    .shake-anim {
+      animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-3px, 0, 0); }
+      20%, 80% { transform: translate3d(5px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    /* Step 4: Summary & Celebration Screen */
+    .summary-card-inner {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .badge-icon-box {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #fef08a, #facc15);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: 0 10px 20px -3px rgba(250, 204, 21, 0.5);
+      animation: bounce 1.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    .celebration-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .celebration-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .summary-points-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      text-align: right;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 520px) {
+      .summary-points-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .summary-point-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .summary-point-item h4 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-point-item p {
+      font-size: 0.85rem;
+      color: #475569;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Visual Indicator for Step 2 axes rules */
+    .axes-guide-box {
+      display: flex;
+      justify-content: space-around;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .axis-guide-tag {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tag-pos { color: #15803d; }
+    .tag-neg { color: #b91c1c; }
+
+    /* Footer Credits */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Top Header & Progress Bar -->
+    <header>
+      <div class="header-top">
+        <div class="title-group">
+          <span class="topic-badge">رياضيات تفاعلية</span>
+          <h1>المَعْلَم في المُسْتَوِي</h1>
+        </div>
+        <button id="soundToggleBtn" class="sound-btn" title="كتم/تشغيل الصوت" aria-label="الصوت">
+          🔊
+        </button>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-meta">
+          <span id="stepCounterLabel">الخطوة 1 من 4</span>
+          <span id="progressPercentLabel">25%</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill" style="width: 25%;"></div>
+        </div>
+        <div class="steps-pills">
+          <div class="step-pill active" id="pill-1">1. الانطلاق</div>
+          <div class="step-pill" id="pill-2">2. الإشارات</div>
+          <div class="step-pill" id="pill-3">3. التحدي</div>
+          <div class="step-pill" id="pill-4">4. الخاتمة</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== STEP 1 ==================== -->
+    <section class="lesson-card active" id="step-1">
+      <div class="step-header">
+        <span class="step-number-tag">المرحلة الأولى</span>
+        <h2 class="step-title">المقدمة والتشبيه الواقعي (تحرك السيارة 🚗)</h2>
+      </div>
+
+      <div class="concept-box">
+        <strong>ما هو المَعْلَم في المستوي؟</strong><br>
+        تخيل مفترق طرق منظم بدقة! المعلم هو شبكة إحداثيات تتكون من:
+        <ul style="margin: 6px 18px 0 0; padding: 0;">
+          <li><strong>المبدأ O:</strong> نقطة الانطلاق الأساسية وإحداثياتها دائماً <span class="badge-term">(0 , 0)</span>.</li>
+          <li><strong>محور الفواصل (X):</strong> الطريق الأفقي (يمين ويسار).</li>
+          <li><strong>محور التراتيب (Y):</strong> الطريق العمودي (أعلى وأسفل).</li>
+        </ul>
+        نحدد موقع أي نقطة بكتابة: <strong>(الفاصلة X ، الترتيبة Y)</strong>.
+      </div>
+
+      <div class="visual-wrapper">
+        <div class="canvas-hud">
+          <span class="coord-label">موقع السيارة:</span>
+          <span id="s1-hud-coord">(0 , 0)</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvasStep1"></canvas>
+        </div>
+      </div>
+
+      <div class="question-box">
+        <p class="question-text">
+          تخيل أن سيارتك تقف عند نقطة الانطلاق (المبدأ O). إذا تحركت السيارة <strong>3 خطوات نحو اليمين</strong> (على محور الفواصل) ثم <strong>خطوتين للأعلى</strong> (على محور التراتيب)، فما هي إحداثيات موقعها الجديد؟
+        </p>
+
+        <div class="options-grid" id="s1-options">
+          <button class="option-btn" data-option="1" onclick="handleStep1Answer(1, this)">
+            <span>أ) خطوتان للأعلى و 3 لليمين</span>
+            <span class="option-badge">(2 , 3)</span>
+          </button>
+          <button class="option-btn" data-option="2" onclick="handleStep1Answer(2, this)">
+            <span>ب) 3 خطوات لليمين وخطوتان للأعلى</span>
+            <span class="option-badge">(3 , 2)</span>
+          </button>
+          <button class="option-btn" data-option="3" onclick="handleStep1Answer(3, this)">
+            <span>جـ) 3 خطوات لليمين وبقيت في مكانها</span>
+            <span class="option-badge">(3 , 0)</span>
+          </button>
+        </div>
+
+        <div class="feedback-box" id="s1-feedback">
+          <span class="feedback-icon" id="s1-fb-icon">💡</span>
+          <div id="s1-fb-text"></div>
+        </div>
+
+        <div class="actions-footer">
+          <button class="btn-primary" id="s1-next-btn" disabled onclick="goToStep(2)">
+            <span>الدرس التالي</span>
+            <span>←</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 2 ==================== -->
+    <section class="lesson-card" id="step-2">
+      <div class="step-header">
+        <span class="step-number-tag">المرحلة الثانية</span>
+        <h2 class="step-title">فهم المحاور والإشارات (الاتجاه الموجب والسالب 🧭)</h2>
+      </div>
+
+      <div class="concept-box">
+        <strong>قاعدة الإشارات والاتجاهات:</strong><br>
+        المبدأ (0,0) يقسم المحاور إلى نصفين:
+        <div class="axes-guide-box">
+          <div class="axis-guide-tag tag-pos">➡️ اليمين: موجب (+)</div>
+          <div class="axis-guide-tag tag-neg">⬅️ اليسار: سالب (-)</div>
+          <div class="axis-guide-tag tag-pos">⬆️ الأعلى: موجب (+)</div>
+          <div class="axis-guide-tag tag-neg">⬇️ الأسفل: سالب (-)</div>
+        </div>
+      </div>
+
+      <div class="visual-wrapper">
+        <div class="canvas-hud">
+          <span class="coord-label">موقع السيارة:</span>
+          <span id="s2-hud-coord">(0 , 0)</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvasStep2"></canvas>
+        </div>
+      </div>
+
+      <div class="question-box">
+        <p class="question-text">
+          إذا عادت السيارة للخلف (<strong>يسار المبدأ بمقدار 4 وحدات</strong>)، وبقيت على نفس الخط الأفقي دون صعود أو نزول، فما هي إحداثياتها؟
+        </p>
+
+        <div class="options-grid" id="s2-options">
+          <button class="option-btn" data-option="1" onclick="handleStep2Answer(1, this)">
+            <span>أ) 4 وحدات نحو اليمين وبدون صعود</span>
+            <span class="option-badge">(4 , 0)</span>
+          </button>
+          <button class="option-btn" data-option="2" onclick="handleStep2Answer(2, this)">
+            <span>ب) 4 وحدات نحو الأسفل على المحور العمودي</span>
+            <span class="option-badge">(0 , -4)</span>
+          </button>
+          <button class="option-btn" data-option="3" onclick="handleStep2Answer(3, this)">
+            <span>جـ) 4 وحدات نحو اليسار وبدون صعود</span>
+            <span class="option-badge">(-4 , 0)</span>
+          </button>
+        </div>
+
+        <div class="feedback-box" id="s2-feedback">
+          <span class="feedback-icon" id="s2-fb-icon">💡</span>
+          <div id="s2-fb-text"></div>
+        </div>
+
+        <div class="actions-footer">
+          <button class="btn-secondary" onclick="goToStep(1)">→ السابق</button>
+          <button class="btn-primary" id="s2-next-btn" disabled onclick="goToStep(3)">
+            <span>الدرس التالي</span>
+            <span>←</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 3 ==================== -->
+    <section class="lesson-card" id="step-3">
+      <div class="step-header">
+        <span class="step-number-tag">المرحلة الثالثة</span>
+        <h2 class="step-title">تحدي التوصيل العملي (قيادة سيارة التوصيل 📦)</h2>
+      </div>
+
+      <div class="concept-box">
+        <strong>المهمة:</strong><br>
+        زبون ينتظر طلبيته في الموقع المحدد بالنقطة: 
+        <strong style="color: #2563eb; font-size: 1.05rem; direction: ltr; display: inline-block;">(-2 , 3)</strong> 🏠.<br>
+        استخدم أزرار التحكم لتوجيه السيارة على الشبكة والوصول بدقة لعنوان الزبون، ثم اضغط <strong>"تحقق من الموقع"</strong>!
+      </div>
+
+      <div class="visual-wrapper">
+        <div class="canvas-hud">
+          <span class="coord-label">موقعك الحالي:</span>
+          <span id="s3-hud-coord">(0 , 0)</span>
+          <span style="color: #94a3b8; margin: 0 4px;">|</span>
+          <span class="coord-label" style="color: #dc2626;">الهدف:</span>
+          <span style="color: #dc2626; font-weight: 800;">(-2 , 3)</span>
+        </div>
+        <div class="canvas-container">
+          <canvas id="canvasStep3"></canvas>
+        </div>
+      </div>
+
+      <!-- Directional Controller -->
+      <div class="controls-panel">
+        <div class="controls-title">
+          <span>🎮 لوحة توجيه السيارة</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">(يمكنك أيضاً استخدام أسهم لوحة المفاتيح)</span>
+        </div>
+
+        <div class="dpad-container">
+          <div class="dpad-empty"></div>
+          <button class="dpad-btn" onclick="moveChallengeCar(0, 1)" aria-label="أعلى">
+            <span class="arrow-icon">⬆️</span>
+            <span>أعلى (+Y)</span>
+          </button>
+          <div class="dpad-empty"></div>
+
+          <button class="dpad-btn" onclick="moveChallengeCar(-1, 0)" aria-label="يسار">
+            <span class="arrow-icon">⬅️</span>
+            <span>يسار (-X)</span>
+          </button>
+          <button class="dpad-btn" onclick="resetChallengeCar()" style="background: #f8fafc; font-size: 0.78rem;" title="العودة للمبدأ">
+            <span style="font-size: 1rem;">🔄</span>
+            <span>المبدأ</span>
+          </button>
+          <button class="dpad-btn" onclick="moveChallengeCar(1, 0)" aria-label="يمين">
+            <span class="arrow-icon">➡️</span>
+            <span>يمين (+X)</span>
+          </button>
+
+          <div class="dpad-empty"></div>
+          <button class="dpad-btn" onclick="moveChallengeCar(0, -1)" aria-label="أسفل">
+            <span class="arrow-icon">⬇️</span>
+            <span>أسفل (-Y)</span>
+          </button>
+          <div class="dpad-empty"></div>
+        </div>
+
+        <div class="step3-actions">
+          <button class="btn-primary" onclick="verifyChallengePosition()" style="padding: 10px 24px;">
+            <span>🔍 تحقق من الموقع</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="feedback-box" id="s3-feedback">
+        <span class="feedback-icon" id="s3-fb-icon">💡</span>
+        <div id="s3-fb-text"></div>
+      </div>
+
+      <div class="actions-footer">
+        <button class="btn-secondary" onclick="goToStep(2)">→ السابق</button>
+        <button class="btn-primary" id="s3-next-btn" disabled onclick="goToStep(4)">
+          <span>عرض النتيجة والوسام 🏆</span>
+          <span>←</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 4 ==================== -->
+    <section class="lesson-card" id="step-4">
+      <div class="summary-card-inner">
+        <div class="badge-icon-box">🏆</div>
+        <h2 class="celebration-title">مبارك! أنت بطل المعالم! 🌟</h2>
+        <p class="celebration-sub">لقد أتقنت بنجاح أساسيات تعيين وفهم النقاط في المعلم المستوي.</p>
+
+        <div class="summary-points-grid">
+          <div class="summary-point-item">
+            <h4>📍 المبدأ O (0 , 0)</h4>
+            <p>نقطة تقاطع المحورين، وهي نقطة الصفر والانطلاق لكل الإحداثيات.</p>
+          </div>
+          <div class="summary-point-item">
+            <h4>↔️ محور الفواصل (X)</h4>
+            <p>المحور الأفقي: اليمين موجب (+) واليسار سالب (-). يُقرأ أولاً في الإحداثيات.</p>
+          </div>
+          <div class="summary-point-item">
+            <h4>↕️ محور التراتيب (Y)</h4>
+            <p>المحور العمودي: الأعلى موجب (+) والأسفل سالب (-). يُقرأ ثانياً في الإحداثيات.</p>
+          </div>
+          <div class="summary-point-item">
+            <h4>✍️ كتابة الإحداثيات (X , Y)</h4>
+            <p>دائماً نبدأ بالفاصلة الأفقية ثم الترتيبة العمودية: <code>(الفاصلة ، الترتيبة)</code>.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <button class="btn-primary" onclick="restartLesson()" style="padding: 12px 28px; font-size: 1rem;">
+            <span>🔄 إعادة الدرس من البداية</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      تطبيق تعليمي تفاعلي لمادة الرياضيات • مصمم بأسلوب بصري سلس لطلاب التعليم المتوسط والثانوي
+    </footer>
+
+  </div>
+
+  <script>
+    /* ==========================================================
+       Sound Effects Generator (Pure Web Audio API - 100% Offline)
+       ========================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, duration, type = 'sine', delay = 0) {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          console.warn(e);
+        }
+      }, delay * 1000);
+    }
+
+    function playSoundSuccess() {
+      playTone(523.25, 0.12, 'triangle', 0);     // C5
+      playTone(659.25, 0.12, 'triangle', 0.1);   // E5
+      playTone(783.99, 0.25, 'triangle', 0.2);   // G5
+      playTone(1046.50, 0.35, 'triangle', 0.32); // C6
+    }
+
+    function playSoundWrong() {
+      playTone(280, 0.15, 'sawtooth', 0);
+      playTone(220, 0.25, 'sawtooth', 0.12);
+    }
+
+    function playSoundMove() {
+      playTone(440, 0.06, 'sine', 0);
+    }
+
+    function playSoundFanfare() {
+      playTone(440, 0.12, 'triangle', 0);
+      playTone(554.37, 0.12, 'triangle', 0.12);
+      playTone(659.25, 0.12, 'triangle', 0.24);
+      playTone(880, 0.45, 'triangle', 0.38);
+    }
+
+    // Sound toggle button
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.textContent = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) playSoundMove();
+    });
+
+    /* ==========================================================
+       Coordinate Grid & Canvas Renderer
+       ========================================================== */
+    class CoordinateGrid {
+      constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        this.range = 5; // -5 to +5 on both X and Y
+        this.carPos = { x: 0, y: 0 };
+        this.targetPos = null; // For Step 3
+        this.trail = [];
+        this.animating = false;
+
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+      }
+
+      resize() {
+        const parent = this.canvas.parentElement;
+        const rect = parent.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        this.width = rect.width || parent.clientWidth || 360;
+        this.height = rect.height || parent.clientHeight || 320;
+
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        this.ctx.resetTransform();
+        this.ctx.scale(dpr, dpr);
+
+        this.stepX = this.width / (this.range * 2 + 2);
+        this.stepY = this.height / (this.range * 2 + 2);
+        this.step = Math.min(this.stepX, this.stepY);
+        this.originX = this.width / 2;
+        this.originY = this.height / 2;
+
+        this.render();
+      }
+
+      toCanvasCoord(x, y) {
+        return {
+          px: this.originX + x * this.step,
+          py: this.originY - y * this.step // Y inverted in screen coords
+        };
+      }
+
+      render() {
+        const { ctx, width, height, step, originX, originY, range } = this;
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Grid Background
+        ctx.fillStyle = '#fafcff';
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Grid lines
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#e2e8f0';
+
+        for (let i = -range; i <= range; i++) {
+          if (i === 0) continue;
+          // Vertical lines
+          const vx = originX + i * step;
+          ctx.beginPath();
+          ctx.moveTo(vx, 0);
+          ctx.lineTo(vx, height);
+          ctx.stroke();
+
+          // Horizontal lines
+          const hy = originY - i * step;
+          ctx.beginPath();
+          ctx.moveTo(0, hy);
+          ctx.lineTo(width, hy);
+          ctx.stroke();
+        }
+
+        // 3. Main Axes (X & Y)
+        ctx.lineWidth = 2.4;
+        ctx.strokeStyle = '#334155';
+
+        // X-axis (محور الفواصل)
+        ctx.beginPath();
+        ctx.moveTo(10, originY);
+        ctx.lineTo(width - 10, originY);
+        ctx.stroke();
+
+        // X-axis arrows
+        this.drawArrow(width - 10, originY, 0);
+        this.drawArrow(10, originY, Math.PI);
+
+        // Y-axis (محور التراتيب)
+        ctx.beginPath();
+        ctx.moveTo(originX, height - 10);
+        ctx.lineTo(originX, 10);
+        ctx.stroke();
+
+        // Y-axis arrows
+        this.drawArrow(originX, 10, -Math.PI / 2);
+        this.drawArrow(originX, height - 10, Math.PI / 2);
+
+        // 4. Tick marks and Numbers
+        ctx.font = "bold 11px Tajawal, sans-serif";
+        ctx.fillStyle = "#64748b";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        for (let i = -range; i <= range; i++) {
+          if (i === 0) continue;
+
+          // X Ticks
+          const tx = originX + i * step;
+          ctx.beginPath();
+          ctx.moveTo(tx, originY - 4);
+          ctx.lineTo(tx, originY + 4);
+          ctx.stroke();
+          ctx.fillText(i, tx, originY + 16);
+
+          // Y Ticks
+          const ty = originY - i * step;
+          ctx.beginPath();
+          ctx.moveTo(originX - 4, ty);
+          ctx.lineTo(originX + 4, ty);
+          ctx.stroke();
+          ctx.fillText(i, originX - 16, ty);
+        }
+
+        // Origin Label O (0,0)
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 12px 'Tajawal', sans-serif";
+        ctx.fillText("O (0,0)", originX + 22, originY + 16);
+
+        // Axis Titles
+        ctx.fillStyle = "#1e40af";
+        ctx.font = "bold 12px 'Tajawal', sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("محور الفواصل (+X)", width - 110, originY - 14);
+        ctx.fillStyle = "#991b1b";
+        ctx.fillText("(-X)", 18, originY - 14);
+
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#1e40af";
+        ctx.fillText("محور التراتيب (+Y)", originX, 22);
+        ctx.fillStyle = "#991b1b";
+        ctx.fillText("(-Y)", originX, height - 20);
+
+        // 5. Target Destination (Step 3 house/pin)
+        if (this.targetPos) {
+          this.drawTarget(this.targetPos.x, this.targetPos.y);
+        }
+
+        // 6. Movement Trail
+        if (this.trail.length > 1) {
+          ctx.save();
+          ctx.lineWidth = 2.5;
+          ctx.setLineDash([4, 4]);
+          ctx.strokeStyle = '#3b82f6';
+          ctx.beginPath();
+          for (let idx = 0; idx < this.trail.length; idx++) {
+            const p = this.toCanvasCoord(this.trail[idx].x, this.trail[idx].y);
+            if (idx === 0) ctx.moveTo(p.px, p.py);
+            else ctx.lineTo(p.px, p.py);
+          }
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // 7. Projection lines to axes for current position
+        if (this.carPos.x !== 0 || this.carPos.y !== 0) {
+          const currentP = this.toCanvasCoord(this.carPos.x, this.carPos.y);
+          const xProj = this.toCanvasCoord(this.carPos.x, 0);
+          const yProj = this.toCanvasCoord(0, this.carPos.y);
+
+          ctx.save();
+          ctx.lineWidth = 1.2;
+          ctx.setLineDash([3, 3]);
+          ctx.strokeStyle = '#ef4444';
+
+          // To X-axis
+          ctx.beginPath();
+          ctx.moveTo(currentP.px, currentP.py);
+          ctx.lineTo(xProj.px, xProj.py);
+          ctx.stroke();
+
+          // To Y-axis
+          ctx.beginPath();
+          ctx.moveTo(currentP.px, currentP.py);
+          ctx.lineTo(yProj.px, yProj.py);
+          ctx.stroke();
+
+          ctx.restore();
+        }
+
+        // 8. Draw Car
+        this.drawCar(this.carPos.x, this.carPos.y);
+      }
+
+      drawArrow(x, y, angle) {
+        const { ctx } = this;
+        const size = 6;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-size, -size * 0.7);
+        ctx.lineTo(-size, size * 0.7);
+        ctx.closePath();
+        ctx.fillStyle = '#334155';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      drawCar(gridX, gridY) {
+        const { ctx } = this;
+        const { px, py } = this.toCanvasCoord(gridX, gridY);
+
+        ctx.save();
+        ctx.translate(px, py);
+
+        // Subtle shadow
+        ctx.beginPath();
+        ctx.ellipse(0, 10, 16, 6, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+        ctx.fill();
+
+        // Car Body (Top-down friendly look)
+        ctx.fillStyle = '#2563eb';
+        roundRect(ctx, -14, -9, 28, 18, 5, true, false);
+
+        // Windshield
+        ctx.fillStyle = '#93c5fd';
+        roundRect(ctx, -6, -7, 12, 14, 3, true, false);
+
+        // Roof
+        ctx.fillStyle = '#1d4ed8';
+        roundRect(ctx, -3, -6, 6, 12, 2, true, false);
+
+        // Wheels
+        ctx.fillStyle = '#0f172a';
+        roundRect(ctx, -12, -12, 6, 3, 1, true, false);
+        roundRect(ctx, 6, -12, 6, 3, 1, true, false);
+        roundRect(ctx, -12, 9, 6, 3, 1, true, false);
+        roundRect(ctx, 6, 9, 6, 3, 1, true, false);
+
+        // Headlights (Right side forward)
+        ctx.fillStyle = '#fde047';
+        ctx.beginPath();
+        ctx.arc(13, -5, 2, 0, Math.PI * 2);
+        ctx.arc(13, 5, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Coordinates tag above car
+        const coordText = `(${gridX >= 0 ? gridX : gridX} , ${gridY >= 0 ? gridY : gridY})`;
+        ctx.font = "bold 11px sans-serif";
+        const textWidth = ctx.measureText(coordText).width;
+
+        ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+        roundRect(ctx, -textWidth / 2 - 6, -28, textWidth + 12, 16, 4, true, false);
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(coordText, 0, -20);
+
+        ctx.restore();
+      }
+
+      drawTarget(gridX, gridY) {
+        const { ctx } = this;
+        const { px, py } = this.toCanvasCoord(gridX, gridY);
+
+        ctx.save();
+        ctx.translate(px, py);
+
+        // Glowing pulse ring
+        ctx.beginPath();
+        ctx.arc(0, 0, 18, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.15)';
+        ctx.fill();
+
+        // Pin base
+        ctx.beginPath();
+        ctx.arc(0, 0, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#dc2626';
+        ctx.fill();
+
+        // Pin border
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#ffffff';
+        ctx.stroke();
+
+        // House / Customer Icon tag
+        ctx.fillStyle = 'rgba(220, 38, 38, 0.9)';
+        ctx.font = "bold 10px 'Tajawal', sans-serif";
+        const tagText = "🏠 عنوان الزبون (-2 , 3)";
+        const w = ctx.measureText(tagText).width;
+        roundRect(ctx, -w / 2 - 6, -26, w + 12, 16, 4, true, false);
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(tagText, 0, -18);
+
+        ctx.restore();
+      }
+
+      // Smooth step-by-step animation along a path of waypoints
+      animatePath(waypoints, onComplete) {
+        if (this.animating) return;
+        this.animating = true;
+        this.trail = [{ x: waypoints[0].x, y: waypoints[0].y }];
+
+        let currentIdx = 0;
+        let progress = 0;
+        const speed = 0.05; // interpolation step
+
+        const stepAnim = () => {
+          if (currentIdx >= waypoints.length - 1) {
+            this.animating = false;
+            this.carPos = { ...waypoints[waypoints.length - 1] };
+            this.render();
+            if (onComplete) onComplete();
+            return;
+          }
+
+          const start = waypoints[currentIdx];
+          const end = waypoints[currentIdx + 1];
+
+          progress += speed;
+          if (progress >= 1) {
+            progress = 0;
+            currentIdx++;
+            this.carPos = { ...end };
+            this.trail.push({ ...end });
+          } else {
+            this.carPos = {
+              x: Number((start.x + (end.x - start.x) * progress).toFixed(2)),
+              y: Number((start.y + (end.y - start.y) * progress).toFixed(2))
+            };
+          }
+
+          this.render();
+          requestAnimationFrame(stepAnim);
+        };
+
+        requestAnimationFrame(stepAnim);
+      }
+    }
+
+    // Helper for rounded rectangle in Canvas
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    /* ==========================================================
+       App State & Initialization
+       ========================================================== */
+    let currentStep = 1;
+    let grid1, grid2, grid3;
+
+    // Challenge car position state
+    let challengeCar = { x: 0, y: 0 };
+    let challengeCompleted = false;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize Grids
+      grid1 = new CoordinateGrid('canvasStep1');
+      grid2 = new CoordinateGrid('canvasStep2');
+      grid3 = new CoordinateGrid('canvasStep3');
+      grid3.targetPos = { x: -2, y: 3 };
+      grid3.render();
+
+      // Keyboard arrow keys listener for challenge
+      window.addEventListener('keydown', (e) => {
+        if (currentStep !== 3) return;
+        if (e.key === 'ArrowUp') { e.preventDefault(); moveChallengeCar(0, 1); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); moveChallengeCar(0, -1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); moveChallengeCar(1, 0); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); moveChallengeCar(-1, 0); }
+        else if (e.key === 'Enter') { e.preventDefault(); verifyChallengePosition(); }
+      });
+    });
+
+    /* ==========================================================
+       Step Navigation & Progress Tracking
+       ========================================================== */
+    function goToStep(stepNumber) {
+      if (stepNumber < 1 || stepNumber > 4) return;
+      currentStep = stepNumber;
+
+      // Update card displays
+      for (let i = 1; i <= 4; i++) {
+        const card = document.getElementById(`step-${i}`);
+        const pill = document.getElementById(`pill-${i}`);
+        if (card) {
+          card.classList.toggle('active', i === stepNumber);
+        }
+        if (pill) {
+          pill.classList.remove('active');
+          if (i === stepNumber) pill.classList.add('active');
+          if (i < stepNumber) pill.classList.add('completed');
+        }
+      }
+
+      // Update Progress Bar
+      const percentage = (stepNumber / 4) * 100;
+      document.getElementById('progressFill').style.width = `${percentage}%`;
+      document.getElementById('progressPercentLabel').textContent = `${percentage}%`;
+      document.getElementById('stepCounterLabel').textContent = `الخطوة ${stepNumber} من 4`;
+
+      // Trigger redraw of active canvas
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          if (stepNumber === 1 && grid1) grid1.resize();
+          if (stepNumber === 2 && grid2) grid2.resize();
+          if (stepNumber === 3 && grid3) grid3.resize();
+        });
+      }, 50);
+
+      // Trigger Confetti on Step 4
+      if (stepNumber === 4) {
+        playSoundFanfare();
+        startConfetti();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================
+       Step 1 Logic
+       ========================================================== */
+    let step1AnsweredCorrectly = false;
+
+    function handleStep1Answer(optionIndex, btnElement) {
+      if (step1AnsweredCorrectly) return;
+
+      const feedbackBox = document.getElementById('s1-feedback');
+      const fbIcon = document.getElementById('s1-fb-icon');
+      const fbText = document.getElementById('s1-fb-text');
+      const nextBtn = document.getElementById('s1-next-btn');
+
+      // Reset feedback classes
+      feedbackBox.classList.remove('show', 'hint', 'success');
+
+      if (optionIndex === 2) {
+        // Correct: (3 , 2)
+        step1AnsweredCorrectly = true;
+        btnElement.classList.add('correct');
+        document.querySelectorAll('#s1-options .option-btn').forEach(btn => btn.disabled = true);
+
+        fbIcon.textContent = '🎉';
+        fbText.innerHTML = '<strong>أحسنت إجابة صحيحة!</strong> الفاصلة 3 (يمين) والترتيبة 2 (أعلى). نبدأ دائماً بالفاصلة الأفقية ثم الترتيبة العمودية.';
+        feedbackBox.classList.add('show', 'success');
+        nextBtn.disabled = false;
+
+        playSoundSuccess();
+
+        // Animate car on grid from (0,0) -> (3,0) -> (3,2)
+        grid1.animatePath([{ x: 0, y: 0 }, { x: 3, y: 0 }, { x: 3, y: 2 }], () => {
+          document.getElementById('s1-hud-coord').textContent = '(3 , 2)';
+        });
+
+      } else {
+        // Wrong option
+        playSoundWrong();
+        btnElement.classList.add('wrong', 'shake-anim');
+        setTimeout(() => btnElement.classList.remove('shake-anim'), 450);
+
+        fbIcon.textContent = '💡';
+        feedbackBox.classList.add('show', 'hint');
+
+        if (optionIndex === 1) {
+          fbText.innerHTML = '<strong>تلميح:</strong> تذكر دائماً: نبدأ بقراءة الحركة الأفقية (محور الفواصل X) أولاً، ثم العمودية (محور التراتيب Y).';
+        } else if (optionIndex === 3) {
+          fbText.innerHTML = '<strong>تلميح:</strong> السيارة تحركت للأعلى أيضاً! لا تنسَ حساب الخطوات على المحور العمودي (التراتيب Y).';
+        }
+      }
+    }
+
+    /* ==========================================================
+       Step 2 Logic
+       ========================================================== */
+    let step2AnsweredCorrectly = false;
+
+    function handleStep2Answer(optionIndex, btnElement) {
+      if (step2AnsweredCorrectly) return;
+
+      const feedbackBox = document.getElementById('s2-feedback');
+      const fbIcon = document.getElementById('s2-fb-icon');
+      const fbText = document.getElementById('s2-fb-text');
+      const nextBtn = document.getElementById('s2-next-btn');
+
+      feedbackBox.classList.remove('show', 'hint', 'success');
+
+      if (optionIndex === 3) {
+        // Correct: (-4 , 0)
+        step2AnsweredCorrectly = true;
+        btnElement.classList.add('correct');
+        document.querySelectorAll('#s2-options .option-btn').forEach(btn => btn.disabled = true);
+
+        fbIcon.textContent = '🌟';
+        fbText.innerHTML = '<strong>ممتاز إجابة دقيقة!</strong> بما أنها لم تصعد ولم تنزل فالترتيبة تساوي 0، والاتجاه لليسار يعني الفاصلة -4.';
+        feedbackBox.classList.add('show', 'success');
+        nextBtn.disabled = false;
+
+        playSoundSuccess();
+
+        // Animate car on grid2 from (0,0) -> (-4,0)
+        grid2.animatePath([{ x: 0, y: 0 }, { x: -4, y: 0 }], () => {
+          document.getElementById('s2-hud-coord').textContent = '(-4 , 0)';
+        });
+
+      } else {
+        playSoundWrong();
+        btnElement.classList.add('wrong', 'shake-anim');
+        setTimeout(() => btnElement.classList.remove('shake-anim'), 450);
+
+        fbIcon.textContent = '💡';
+        feedbackBox.classList.add('show', 'hint');
+
+        if (optionIndex === 1) {
+          fbText.innerHTML = '<strong>تلميح:</strong> الاتجاه نحو اليسار يأخذ إشارة سالبة (-)، بينما اليمين موجب (+).';
+        } else if (optionIndex === 2) {
+          fbText.innerHTML = '<strong>تلميح:</strong> الحركة كانت أفقية (يمين/يسار على محور الفواصل) وليست عمودية (أعلى/أسفل).';
+        }
+      }
+    }
+
+    /* ==========================================================
+       Step 3 Logic: Interactive Delivery Challenge
+       ========================================================== */
+    function moveChallengeCar(dx, dy) {
+      if (challengeCompleted) return;
+
+      const newX = challengeCar.x + dx;
+      const newY = challengeCar.y + dy;
+
+      // Limit inside grid bounds [-5, 5]
+      if (newX < -5 || newX > 5 || newY < -5 || newY > 5) {
+        playSoundWrong();
+        return;
+      }
+
+      challengeCar.x = newX;
+      challengeCar.y = newY;
+      grid3.carPos = { ...challengeCar };
+      grid3.trail.push({ ...challengeCar });
+      grid3.render();
+
+      document.getElementById('s3-hud-coord').textContent = `(${challengeCar.x} , ${challengeCar.y})`;
+      playSoundMove();
+
+      // Clear previous error messages when moving
+      const fb = document.getElementById('s3-feedback');
+      if (fb.classList.contains('hint')) {
+        fb.classList.remove('show', 'hint');
+      }
+    }
+
+    function resetChallengeCar() {
+      challengeCar = { x: 0, y: 0 };
+      grid3.carPos = { x: 0, y: 0 };
+      grid3.trail = [{ x: 0, y: 0 }];
+      grid3.render();
+      document.getElementById('s3-hud-coord').textContent = `(0 , 0)`;
+      playSoundMove();
+
+      const fb = document.getElementById('s3-feedback');
+      fb.classList.remove('show', 'hint', 'success');
+    }
+
+    function verifyChallengePosition() {
+      const feedbackBox = document.getElementById('s3-feedback');
+      const fbIcon = document.getElementById('s3-fb-icon');
+      const fbText = document.getElementById('s3-fb-text');
+      const nextBtn = document.getElementById('s3-next-btn');
+
+      feedbackBox.classList.remove('show', 'hint', 'success');
+
+      if (challengeCar.x === -2 && challengeCar.y === 3) {
+        // SUCCESS
+        challengeCompleted = true;
+        playSoundSuccess();
+        fbIcon.textContent = '🎉';
+        fbText.innerHTML = '<strong>رائع ومبهر!</strong> وصلت إلى منزل الزبون بنجاح عند النقطة <strong>(-2 , 3)</strong>. لقد تحركت خطوتين لليسار (-2) و 3 خطوات للأعلى (+3).';
+        feedbackBox.classList.add('show', 'success');
+        nextBtn.disabled = false;
+
+        // Auto glow/effect
+        startConfetti(2500);
+
+      } else {
+        // WRONG POSITION
+        playSoundWrong();
+        feedbackBox.classList.add('show', 'hint');
+        fbIcon.textContent = '📍';
+
+        let hintAdvice = '';
+        if (challengeCar.x > -2) hintAdvice += 'تحرك يساراً ';
+        else if (challengeCar.x < -2) hintAdvice += 'تحرك يميناً ';
+
+        if (challengeCar.y < 3) hintAdvice += (hintAdvice ? 'و' : '') + ' تحرك للأعلى';
+        else if (challengeCar.y > 3) hintAdvice += (hintAdvice ? 'و' : '') + ' تحرك للأسفل';
+
+        fbText.innerHTML = `أنت الآن في <strong>(${challengeCar.x} , ${challengeCar.y})</strong>، بينما عنوان الزبون هو <strong>(-2 , 3)</strong>.<br>تلميح: حاول أن ${hintAdvice} حتى تطابق الإحداثيات!`;
+      }
+    }
+
+    /* ==========================================================
+       Reset / Restart Lesson
+       ========================================================== */
+    function restartLesson() {
+      // Reset state variables
+      step1AnsweredCorrectly = false;
+      step2AnsweredCorrectly = false;
+      challengeCompleted = false;
+      challengeCar = { x: 0, y: 0 };
+
+      // Reset Step 1 UI
+      document.querySelectorAll('#s1-options .option-btn').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'wrong');
+      });
+      document.getElementById('s1-feedback').classList.remove('show', 'hint', 'success');
+      document.getElementById('s1-next-btn').disabled = true;
+      document.getElementById('s1-hud-coord').textContent = '(0 , 0)';
+      grid1.carPos = { x: 0, y: 0 };
+      grid1.trail = [];
+      grid1.render();
+
+      // Reset Step 2 UI
+      document.querySelectorAll('#s2-options .option-btn').forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('correct', 'wrong');
+      });
+      document.getElementById('s2-feedback').classList.remove('show', 'hint', 'success');
+      document.getElementById('s2-next-btn').disabled = true;
+      document.getElementById('s2-hud-coord').textContent = '(0 , 0)';
+      grid2.carPos = { x: 0, y: 0 };
+      grid2.trail = [];
+      grid2.render();
+
+      // Reset Step 3 UI
+      resetChallengeCar();
+      document.getElementById('s3-next-btn').disabled = true;
+
+      // Jump to Step 1
+      goToStep(1);
+    }
+
+    /* ==========================================================
+       Celebration Confetti Effect
+       ========================================================== */
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function startConfetti(durationMs = 4000) {
+      confettiParticles = [];
+      const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+      for (let i = 0; i < 90; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * -confettiCanvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 4 + 3,
+          rot: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 8
+        });
+      }
+
+      if (!confettiAnimId) {
+        animateConfetti();
+      }
+
+      setTimeout(() => {
+        confettiParticles = [];
+      }, durationMs);
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = 0; i < confettiParticles.length; i++) {
+        const p = confettiParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vRot;
+
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rot * Math.PI) / 180);
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        confettiCtx.restore();
+
+        // wrap around
+        if (p.y > confettiCanvas.height) {
+          p.y = -20;
+          p.x = Math.random() * confettiCanvas.width;
+        }
+      }
+
+      if (confettiParticles.length > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiAnimId = null;
+      }
+    }
+  </script>
+</body>
+</html>
