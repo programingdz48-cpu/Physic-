@@ -28,3 +28,4 @@
 - **Vanilla JavaScript (ES6+)**
 - **HTML5 Canvas API**
 - **Web Audio API**
+
