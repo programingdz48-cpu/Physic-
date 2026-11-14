@@ -686,6 +686,76 @@
       color: #94a3b8;
       margin-top: 8px;
     }
+
+    /* Navigation Banner to Communication Quiz */
+    .nav-banner-card {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: #1e40af;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      gap: 12px;
+    }
+
+    .nav-banner-card:hover {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-banner-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-banner-icon {
+      font-size: 1.5rem;
+      background: #ffffff;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+      flex-shrink: 0;
+    }
+
+    .nav-banner-title {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .nav-banner-sub {
+      display: block;
+      font-size: 0.8rem;
+      color: #3b82f6;
+      margin-top: 1px;
+    }
+
+    .nav-banner-arrow {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-banner-card:hover .nav-banner-arrow {
+      background: var(--primary-hover);
+    }
   </style>
 </head>
 <body>
@@ -723,6 +793,18 @@
         </div>
       </div>
     </header>
+
+    <!-- Navigation Banner to Communication Quiz -->
+    <a href="communication-quiz.html" class="nav-banner-card" title="الانتقال إلى كويز أنواع الاتصال المؤسسي">
+      <div class="nav-banner-content">
+        <span class="nav-banner-icon">🎯</span>
+        <div>
+          <strong class="nav-banner-title">كويز جديد: أنواع الاتصال التنظيمي والمؤسساتي</strong>
+          <span class="nav-banner-sub">16 نوعاً في 4 محاور مع سيناريوهات واقعية تفاعلية</span>
+        </div>
+      </div>
+      <span class="nav-banner-arrow">خوض التحدي ←</span>
+    </a>
 
     <!-- ==================== STEP 1 ==================== -->
     <section class="lesson-card active" id="step-1">
@@ -963,6 +1045,10 @@
           <button class="btn-primary" onclick="restartLesson()" style="padding: 12px 28px; font-size: 1rem;">
             <span>🔄 إعادة الدرس من البداية</span>
           </button>
+          <a href="communication-quiz.html" class="btn-secondary" style="padding: 12px 22px; font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+            <span>🎯 خوض كويز الاتصال المؤسسي (16 نوعاً)</span>
+            <span>←</span>
+          </a>
         </div>
       </div>
     </section>

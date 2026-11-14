@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>كويز تفاعلي: أنواع الاتصال التنظيمي والمؤسساتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --success-border: #86efac;
+      --error: #ea580c;
+      --error-light: #fff7ed;
+      --error-border: #fdba74;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      padding: 16px 12px 32px;
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    header {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #e2e8f0;
+      color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .sound-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .sound-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .topic-badge {
+      align-self: flex-start;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 3px 12px;
+      border-radius: 999px;
+    }
+
+    h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .header-sub {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* Collapsible Study Accordion */
+    .accordion-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      background: #ffffff;
+      border: none;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      transition: background 0.2s;
+    }
+
+    .accordion-trigger:hover {
+      background: #f8fafc;
+    }
+
+    .accordion-trigger-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .accordion-arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .accordion-card.open .accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 14px 18px 20px;
+      border-top: 1px solid var(--border);
+      background: #f8fafc;
+      font-size: 0.88rem;
+    }
+
+    .accordion-card.open .accordion-body {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .review-categories-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 600px) {
+      .review-categories-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .category-review-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .category-review-box h4 {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .review-items-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0;
+    }
+
+    .review-items-list li {
+      font-size: 0.82rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .fr-term {
+      direction: ltr;
+      display: inline-block;
+      font-size: 0.82em;
+      color: #475569;
+      font-weight: 600;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0 2px;
+    }
+
+    /* Quiz Card */
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Quiz Progress Header */
+    .quiz-progress-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .quiz-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .category-tag {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+    }
+
+    .progress-track {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      height: 100%;
+      width: 6.25%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    /* Scenario Box */
+    .scenario-box {
+      background: #f8fafc;
+      border-right: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 18px;
+    }
+
+    .scenario-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scenario-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .question-prompt {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Options List */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      text-align: right;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      outline: none;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #93c5fd;
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .option-btn.correct {
+      background: var(--success-light) !important;
+      border-color: var(--success) !important;
+      color: #14532d !important;
+    }
+
+    .option-btn.wrong {
+      background: var(--error-light) !important;
+      border-color: var(--error) !important;
+      color: #7c2d12 !important;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-letter {
+      background: #f1f5f9;
+      color: #475569;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--error);
+      color: #ffffff;
+    }
+
+    /* Feedback Box */
+    .feedback-box {
+      display: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      animation: popIn 0.25s ease-out;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .feedback-box.show {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feedback-box.hint {
+      background: var(--error-light);
+      border: 1px solid var(--error-border);
+      color: #9a3412;
+    }
+
+    .feedback-box.success {
+      background: var(--success-light);
+      border: 1px solid var(--success-border);
+      color: #15803d;
+    }
+
+    .feedback-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Actions Footer */
+    .actions-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .score-tracker-pill {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e1;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Shake Animation */
+    .shake-anim {
+      animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-3px, 0, 0); }
+      20%, 80% { transform: translate3d(5px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    /* Results Screen */
+    .results-card {
+      display: none;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      text-align: center;
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    .results-badge {
+      width: 76px;
+      height: 76px;
+      background: linear-gradient(135deg, #fef08a, #facc15);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: 0 8px 16px -2px rgba(250, 204, 21, 0.5);
+    }
+
+    .results-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .results-score-display {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .results-sub {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .results-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    /* Master Summary Cards */
+    .master-summary-section {
+      text-align: right;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .master-summary-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 580px) {
+      .summary-cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .summary-card-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .summary-card-item h5 {
+      font-size: 0.88rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .summary-card-item p {
+      font-size: 0.82rem;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Header & Navigation -->
+    <header>
+      <div class="nav-bar">
+        <a href="index.html" class="back-btn" title="الرجوع لدرس المعلم في المستوي">
+          <span>←</span>
+          <span>العودة للرئيسية (رياضيات)</span>
+        </a>
+        <button id="soundToggleBtn" class="sound-btn" title="كتم/تشغيل الصوت" aria-label="الصوت">
+          🔊
+        </button>
+      </div>
+
+      <div class="header-content">
+        <span class="topic-badge">علوم الإعلام والاتصال • إدارة الأعمال</span>
+        <h1>أنواع الاتصال التنظيمي والمؤسساتي</h1>
+        <p class="header-sub">كويز تفاعلي قائم على سيناريوهات ووضعيات واقعية من بيئة العمل والمؤسسات (16 نوعاً في 4 محاور)</p>
+      </div>
+    </header>
+
+    <!-- Quick Review Collapsible Accordion -->
+    <div class="accordion-card" id="reviewAccordion">
+      <button class="accordion-trigger" onclick="toggleAccordion()" aria-expanded="false">
+        <div class="accordion-trigger-content">
+          <span>📖</span>
+          <span>ملخص الدرس السريع (راجع الأنواع الـ 16 قبل أو أثناء الكويز)</span>
+        </div>
+        <span class="accordion-arrow">▼</span>
+      </button>
+
+      <div class="accordion-body">
+        <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.84rem;">
+          ينقسم الاتصال التنظيمي والمؤسساتي إلى 4 معايير رئيسية تشمل 16 نوعاً:
+        </p>
+
+        <div class="review-categories-grid">
+          <!-- 1. Direction -->
+          <div class="category-review-box">
+            <h4>1. حسب الاتجاه <bdi class="fr-term">(Direction)</bdi></h4>
+            <ul class="review-items-list">
+              <li><strong>الأفقي <bdi class="fr-term">(Horizontale)</bdi>:</strong> بين موظفين في نفس المستوى الإداري للتنسيق.</li>
+              <li><strong>العمودي <bdi class="fr-term">(Verticale)</bdi>:</strong> بين مستويات إدارية مختلفة (هابط للأوامر أو صاعد للتقارير).</li>
+              <li><strong>القطري <bdi class="fr-term">(Diagonale)</bdi>:</strong> بين أفراد في مصالح ومستويات مختلفة لتخطي الروتين.</li>
+            </ul>
+          </div>
+
+          <!-- 2. Target Audience -->
+          <div class="category-review-box">
+            <h4>2. حسب الجمهور المستهدف <bdi class="fr-term">(Public cible)</bdi></h4>
+            <ul class="review-items-list">
+              <li><strong>الداخلي <bdi class="fr-term">(Interne)</bdi>:</strong> موجه للعمال والموظفين داخل المؤسسة.</li>
+              <li><strong>الخارجي <bdi class="fr-term">(Externe)</bdi>:</strong> موجه للزبائن، الموردين والمستثمرين.</li>
+              <li><strong>المؤسسي <bdi class="fr-term">(Institutionnelle)</bdi>:</strong> بناء سمعة المؤسسة وهويتها وصورتها.</li>
+              <li><strong>المجتمعي <bdi class="fr-term">(Sociétale)</bdi>:</strong> إبراز المسؤولية الاجتماعية وحماية البيئة والمجتمع.</li>
+            </ul>
+          </div>
+
+          <!-- 3. Medium -->
+          <div class="category-review-box">
+            <h4>3. حسب الوسيلة المستخدمة <bdi class="fr-term">(Moyen / Canal)</bdi></h4>
+            <ul class="review-items-list">
+              <li><strong>الشفهي <bdi class="fr-term">(Orale)</bdi>:</strong> اجتماعات، مقابلات، محادثات ومؤتمرات صحفية.</li>
+              <li><strong>الكتابي <bdi class="fr-term">(Écrite)</bdi>:</strong> مذكرات، رسائل، تقارير ومطويات موثقة.</li>
+              <li><strong>البصري <bdi class="fr-term">(Visuelle)</bdi>:</strong> صور، لافتات، ملصقات وشعارات.</li>
+              <li><strong>السمعي البصري <bdi class="fr-term">(Audiovisuelle)</bdi>:</strong> أفلام مؤسساتية وفيديوهات تدمج الصوت والصورة.</li>
+              <li><strong>الرقمي <bdi class="fr-term">(Digitale)</bdi>:</strong> مواقع، بريد إلكتروني، وشبكات التواصل.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Nature -->
+          <div class="category-review-box">
+            <h4>4. حسب طبيعة الاتصال <bdi class="fr-term">(Nature)</bdi></h4>
+            <ul class="review-items-list">
+              <li><strong>الرسمي <bdi class="fr-term">(Formelle)</bdi>:</strong> عبر القنوات الإدارية الرسمية والقوانين.</li>
+              <li><strong>غير الرسمي <bdi class="fr-term">(Informelle)</bdi>:</strong> أحاديث عفوية بين الأفراد خارج الأطر الرسمية.</li>
+              <li><strong>المباشر <bdi class="fr-term">(Directe)</bdi>:</strong> اتصال مباشر بين المؤسسة والجمهور دون وسيط.</li>
+              <li><strong>غير المباشر <bdi class="fr-term">(Indirecte)</bdi>:</strong> عبر وسيط خارجي كالصحافة أو وكالات الإعلان والمؤثرين.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Quiz Card -->
+    <main class="quiz-card" id="quizCard">
+      <!-- Progress Section -->
+      <div class="quiz-progress-section">
+        <div class="quiz-progress-meta">
+          <span id="questionCounter">السؤال 1 من 16</span>
+          <span class="category-tag" id="categoryTag">المحور: حسب الاتجاه</span>
+          <span id="percentLabel">6%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Scenario Box -->
+      <div class="scenario-box">
+        <div class="scenario-label">
+          <span>💼</span>
+          <span>الوضعية والسيناريو:</span>
+        </div>
+        <div class="scenario-text" id="scenarioText">
+          جاري تحميل السؤال...
+        </div>
+        <div class="question-prompt" id="questionPrompt">
+          ما نوع هذا الاتصال؟
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="options-grid" id="optionsGrid">
+        <!-- Generated dynamically -->
+      </div>
+
+      <!-- Feedback Box -->
+      <div class="feedback-box" id="feedbackBox">
+        <span class="feedback-icon" id="feedbackIcon">💡</span>
+        <div id="feedbackText"></div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="actions-footer">
+        <div class="score-tracker-pill">
+          <span>النقاط: </span>
+          <strong id="liveScore" style="color: var(--primary);">0</strong>
+          <span> / 16</span>
+        </div>
+        <button class="btn-primary" id="nextQuestionBtn" disabled onclick="nextQuestion()">
+          <span>السؤال التالي</span>
+          <span>←</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Results Card -->
+    <section class="results-card" id="resultsCard">
+      <div class="results-badge" id="resultsBadge">🏆</div>
+      <h2 class="results-title" id="resultsTitle">مبروك! أنهيت الكويز بنجاح</h2>
+      <div class="results-score-display">
+        نتيجتك: <span id="finalScoreDisplay">16 / 16</span> (<span id="finalPercentDisplay">100%</span>)
+      </div>
+      <p class="results-sub" id="resultsMessage">أداء استثنائي ينم عن استيعاب دقيق لأنواع الاتصال المؤسسي والتنظيمي.</p>
+
+      <div class="results-actions">
+        <button class="btn-primary" onclick="restartQuiz()">
+          <span>🔄 إعادة الاختبار (مع ترتيب عشوائي)</span>
+        </button>
+        <a href="index.html" class="back-btn" style="padding: 10px 18px; font-size: 0.95rem;">
+          <span>← درس الرياضيات (المعلم في المستوي)</span>
+        </a>
+      </div>
+
+      <!-- Full Reference Summary -->
+      <div class="master-summary-section">
+        <h3 class="master-summary-title">
+          <span>📚</span>
+          <span>البطاقة المرجعية الشاملة للأنواع الـ 16 (للمراجعة والحفظ):</span>
+        </h3>
+        <div class="summary-cards-grid" id="summaryGrid">
+          <!-- Populated in JS -->
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      تطبيق تعليمي تفاعلي • أنواع الاتصال التنظيمي والمؤسساتي • مصمم وفق المعايير البيداغوجية الحديثة
+    </footer>
+
+  </div>
+
+  <script>
+    /* ==========================================================
+       Sound Effects (Web Audio API - Offline)
+       ========================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, duration, type = 'sine', delay = 0) {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          console.warn(e);
+        }
+      }, delay * 1000);
+    }
+
+    function playSoundSuccess() {
+      playTone(523.25, 0.1, 'triangle', 0);     // C5
+      playTone(659.25, 0.1, 'triangle', 0.08);  // E5
+      playTone(783.99, 0.22, 'triangle', 0.16); // G5
+    }
+
+    function playSoundWrong() {
+      playTone(280, 0.15, 'sawtooth', 0);
+      playTone(220, 0.22, 'sawtooth', 0.1);
+    }
+
+    function playSoundFanfare() {
+      playTone(440, 0.12, 'triangle', 0);
+      playTone(554.37, 0.12, 'triangle', 0.12);
+      playTone(659.25, 0.12, 'triangle', 0.24);
+      playTone(880, 0.45, 'triangle', 0.38);
+    }
+
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.textContent = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) playTone(440, 0.08, 'sine');
+    });
+
+    /* ==========================================================
+       Accordion Toggle
+       ========================================================== */
+    function toggleAccordion() {
+      const card = document.getElementById('reviewAccordion');
+      card.classList.toggle('open');
+      const expanded = card.classList.contains('open');
+      card.querySelector('.accordion-trigger').setAttribute('aria-expanded', expanded);
+    }
+
+    /* ==========================================================
+       16 Question Bank covering all 16 Communication Types
+       ========================================================== */
+    const questionBank = [
+      // 1. حسب الاتجاه - الأفقي
+      {
+        id: "dir_horizontal",
+        category: "حسب الاتجاه (Direction)",
+        scenario: "اجتمع رئيس مصلحة التسويق مع رئيس مصلحة المبيعات للتنسيق حول إطلاق حملة ترويجية للمنتج الجديد في السوق، دون الحاجة للمرور عبر المدير العام.",
+        prompt: "ما نوع هذا الاتصال حسب معيار الاتجاه؟",
+        options: [
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: true },
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: false },
+          { text: "الاتصال القطري", fr: "Communication diagonale", isCorrect: false },
+          { text: "الاتصال الخارجي", fr: "Communication externe", isCorrect: false }
+        ],
+        hint: "لاحظ أن كلا المسؤولين ينتميان إلى نفس المستوى الإداري (رؤساء مصالح متساوون في الهرم)، والهدف هو التنسيق والتعاون بين أقسام متجاورة.",
+        explanation: "أحسنت! الاتصال الأفقي (Communication horizontale) يتم بين موظفين أو مصالح في نفس المستوى الإداري لتحقيق التنسيق وتبادل المعلومات."
+      },
+      // 2. حسب الاتجاه - العمودي
+      {
+        id: "dir_vertical",
+        category: "حسب الاتجاه (Direction)",
+        scenario: "أصدر المدير العام تعميماً رسمياً لكافة العمال يحدد فيه مواعيد العمل الجديدة لشهر رمضان، وطلب في المقابل من مسؤولي الأقسام إرسال تقارير تقييمية أسبوعية إليه.",
+        prompt: "ما نوع هذا الاتصال حسب اتجاه حركة المعلومات؟",
+        options: [
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: true },
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: false },
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: false },
+          { text: "الاتصال المجتمعي", fr: "Communication sociétale", isCorrect: false }
+        ],
+        hint: "المعلومات هنا تتحرك بين قمة الهرم الإداري وقاعدته (تعليمات نازلة من المدير، وتقارير صاعدة من الموظفين).",
+        explanation: "صحيح! الاتصال العمودي (Communication verticale) يربط بين مستويات إدارية مختلفة، سواء كان هابطاً (قرارات وتوجيهات) أو صاعداً (تقارير واقتراحات)."
+      },
+      // 3. حسب الاتجاه - القطري
+      {
+        id: "dir_diagonal",
+        category: "حسب الاتجاه (Direction)",
+        scenario: "تواصل رئيس مصلحة المحاسبة في المديرية المالية مباشرة مع مهندس ميداني في مصلحة الصيانة لحل خطأ مستعجل في فاتورة قطع غيار، دون المرور بمدير الصيانة.",
+        prompt: "ما هو تصنيف هذا الاتصال وفق معيار الاتجاه؟",
+        options: [
+          { text: "الاتصال القطري", fr: "Communication diagonale", isCorrect: true },
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: false },
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: false },
+          { text: "الاتصال المباشر", fr: "Communication directe", isCorrect: false }
+        ],
+        hint: "التواصل جمع بين شخصين في مصلحتين مختلفتين تماماً وبمستويين وظيفيين غير متطابقين، متجاوزين الخطوط الهرمية المعتادة لربح الوقت.",
+        explanation: "ممتاز! الاتصال القطري أو المتقاطع (Communication diagonale) يتم بين أفراد ينتمون لمصالح مختلفة ومستويات وظيفية متباينة لتجاوز الروتين البيروقراطي."
+      },
+      // 4. حسب الجمهور - الداخلي
+      {
+        id: "pub_internal",
+        category: "حسب الجمهور المستهدف (Public cible)",
+        scenario: "نشرت مديرية الموارد البشرية عبر شبكة الإنترانت ومجلة الحائط دليلاً ترحيبياً واستطلاع رأي للموظفين لقياس رضاهم عن بيئة العمل داخل المؤسسة.",
+        prompt: "ما نوع هذا الاتصال حسب الجمهور المستهدف؟",
+        options: [
+          { text: "الاتصال الداخلي", fr: "Communication interne", isCorrect: true },
+          { text: "الاتصال الخارجي", fr: "Communication externe", isCorrect: false },
+          { text: "الاتصال المؤسسي", fr: "Communication institutionnelle", isCorrect: false },
+          { text: "الاتصال غير المباشر", fr: "Communication indirecte", isCorrect: false }
+        ],
+        hint: "هذا الاتصال محصور وموجه كلياً للعاملين والموظفين داخل حدود المؤسسة لرفع انتمائهم.",
+        explanation: "إجابة دقيقة! الاتصال الداخلي (Communication interne) يستهدف حصراً مجتمع العاملين والموظفين والشركاء الاجتماعيين داخل المؤسسة."
+      },
+      // 5. حسب الجمهور - الخارجي
+      {
+        id: "pub_external",
+        category: "حسب الجمهور المستهدف (Public cible)",
+        scenario: "نشرت شركة طيران بياناً إعلامياً عبر وسائل الإعلام وموقعها موجه للمسافرين ووكالات السياحة والمستثمرين لإعلان افتتاح خطوط جوية دولية جديدة.",
+        prompt: "ما نوع هذا الاتصال بناءً على الفئة المستهدفة؟",
+        options: [
+          { text: "الاتصال الخارجي", fr: "Communication externe", isCorrect: true },
+          { text: "الاتصال الداخلي", fr: "Communication interne", isCorrect: false },
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: false },
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: false }
+        ],
+        hint: "الجمهور المتلقي يقع خارج أسوار المؤسسة (زبائن، موردون، شركاء، وسائل إعلام ومستثمرون).",
+        explanation: "أحسنت! الاتصال الخارجي (Communication externe) يوجه إلى البيئة الخارجية للمؤسسة كالزبائن والموردين والشركاء والمستهلكين."
+      },
+      // 6. حسب الجمهور - المؤسسي
+      {
+        id: "pub_institutional",
+        category: "حسب الجمهور المستهدف (Public cible)",
+        scenario: "أطلقت شركة ألبان حملة وطنية واسعة تحت شعار 'ستون عاماً من الجودة والأصالة في خدمة العائلة الجزائرية' لترسيخ هويتها وقيمها دون التركيز على بيع منتج بعينه.",
+        prompt: "ما نوع هذا الاتصال المتخصص في بناء السمعة؟",
+        options: [
+          { text: "الاتصال المؤسسي", fr: "Communication institutionnelle", isCorrect: true },
+          { text: "الاتصال الرقمي", fr: "Communication digitale", isCorrect: false },
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: false },
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: false }
+        ],
+        hint: "الهدف الجوهري هنا ليس ترويج سلعة معينة، بل تلميع وبناء الصورة الذهنية للمؤسسة (Image de marque) ونيل ثقة الجمهور بها.",
+        explanation: "رائع! الاتصال المؤسسي (Communication institutionnelle) يهدف لبناء سمعة المؤسسة وشخصيتها وهويتها البصرية ونيل احترام المجتمع."
+      },
+      // 7. حسب الجمهور - المجتمعي
+      {
+        id: "pub_societal",
+        category: "حسب الجمهور المستهدف (Public cible)",
+        scenario: "تبنت شركة اتصالات مبادرة تشجير 50 ألف شجرة لدعم البيئة ورعاية أطفال مرضى التوحد، ونشرت تقريراً سنوياً حول التزامها بالمسؤولية الاجتماعية (RSE).",
+        prompt: "ما نوع هذا الاتصال الذي يبرز دور المؤسسة في خدمة قضايا المجتمع؟",
+        options: [
+          { text: "الاتصال المجتمعي", fr: "Communication sociétale", isCorrect: true },
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: false },
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: false },
+          { text: "الاتصال القطري", fr: "Communication diagonale", isCorrect: false }
+        ],
+        hint: "يركز هذا الاتصال على إثبات مواطنة المؤسسة وتفاعلها الأخلاقي مع قضايا البيئة والتنمية والصحة العامة.",
+        explanation: "صحيح تماماً! الاتصال المجتمعي (Communication sociétale) يبرز مساهمة المؤسسة ومسؤوليتها الأخلاقية والاجتماعية والبيئية تجاه المجتمع."
+      },
+      // 8. حسب الوسيلة - الشفهي
+      {
+        id: "med_oral",
+        category: "حسب الوسيلة المستخدمة (Moyen)",
+        scenario: "عقد المدير العام لقاءً حوارياً مفتوحاً في قاعة المحاضرات ألقى خلاله كلمة شفوية وأجاب بصوته مباشرة على استفسارات الموظفين الحاضرين.",
+        prompt: "ما نوع هذا الاتصال حسب القناة والوسيلة المستخدمة؟",
+        options: [
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: true },
+          { text: "الاتصال الكتابي", fr: "Communication écrite", isCorrect: false },
+          { text: "الاتصال البصري", fr: "Communication visuelle", isCorrect: false },
+          { text: "الاتصال غير المباشر", fr: "Communication indirecte", isCorrect: false }
+        ],
+        hint: "الرسالة تنتقل عبر الكلمات المنطوقة والصوت والتفاعل الكلامي المباشر.",
+        explanation: "إجابة صحيحة! الاتصال الشفهي (Communication orale) يعتمد على الصوت واللغة المنطوقة كالاجتماعات والخطابات والمحادثات."
+      },
+      // 9. حسب الوسيلة - الكتابي
+      {
+        id: "med_written",
+        category: "حسب الوسيلة المستخدمة (Moyen)",
+        scenario: "أرسلت مصلحة الشؤون القانونية مذكرة عمل مطبوعة وموقعة ومختومة تتضمن البنود الجديدة للاتفاقية الجماعية للعمال، وتم حفظ نسخة في الأرشيف.",
+        prompt: "ما نوع هذا الاتصال حسب الأداة المستعملة؟",
+        options: [
+          { text: "الاتصال الكتابي", fr: "Communication écrite", isCorrect: true },
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: false },
+          { text: "الاتصال السمعي البصري", fr: "Communication audiovisuelle", isCorrect: false },
+          { text: "الاتصال المجتمعي", fr: "Communication sociétale", isCorrect: false }
+        ],
+        hint: "الوسيلة عبارة عن وثيقة مدونة نصياً وتحمل طابع التوثيق الدائم والإثبات القانوني.",
+        explanation: "أحسنت! الاتصال الكتابي (Communication écrite) يتم بواسطة وثائق ومحررات مسجلة كالتقارير، الرسائل، المذكرات، والبيانات الصحفية."
+      },
+      // 10. حسب الوسيلة - البصري
+      {
+        id: "med_visual",
+        category: "حسب الوسيلة المستخدمة (Moyen)",
+        scenario: "قامت مصلحة الوقاية والأمن بتعليق لافتات جدارية تحتوي على رموز رسومية وألوان تحذيرية ورسم لخوذة وقفازات دون كتابة جمل طويلة، لتنبيه العمال في الورشة.",
+        prompt: "ما تصنيف هذا الاتصال حسب الوسيلة؟",
+        options: [
+          { text: "الاتصال البصري", fr: "Communication visuelle", isCorrect: true },
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: false },
+          { text: "الاتصال العمودي", fr: "Communication verticale", isCorrect: false },
+          { text: "الاتصال القطري", fr: "Communication diagonale", isCorrect: false }
+        ],
+        hint: "الرسالة تعتمد حصراً على حاسة البصر من خلال الأشكال والرموز والألوان والرسوم المعبرة.",
+        explanation: "ممتاز! الاتصال البصري (Communication visuelle) يعتمد على الرموز، الرسوم البيانية، الملصقات، والهوية البصرية التي تدركها العين."
+      },
+      // 11. حسب الوسيلة - السمعي البصري
+      {
+        id: "med_audiovisual",
+        category: "حسب الوسيلة المستخدمة (Moyen)",
+        scenario: "أنتجت المؤسسة شريطاً وثائقياً مؤسساتياً مدته 4 دقائق يجمع بين مشاهد مصورة عالية الجودة وتعليق صوتي وموسيقى تصويرية، وتم بثه على القنوات التلفزيونية.",
+        prompt: "ما نوع هذا الاتصال وفق معيار الوسيلة؟",
+        options: [
+          { text: "الاتصال السمعي البصري", fr: "Communication audiovisuelle", isCorrect: true },
+          { text: "الاتصال الكتابي", fr: "Communication écrite", isCorrect: false },
+          { text: "الاتصال البصري", fr: "Communication visuelle", isCorrect: false },
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: false }
+        ],
+        hint: "الوسيط يدمج قناة الرؤية بالعين وسماع الصوت معاً في صيغة فيديو متكامل.",
+        explanation: "صحيح! الاتصال السمعي البصري (Communication audiovisuelle) يوظف الصوت والصورة المتحركة معاً كالفيديوهات والأفلام المؤسساتية."
+      },
+      // 12. حسب الوسيلة - الرقمي
+      {
+        id: "med_digital",
+        category: "حسب الوسيلة المستخدمة (Moyen)",
+        scenario: "أطلقت المؤسسة تطبيقاً هاتفياً وبوابة سحابية إلكترونية وترسل نشرات بريدية تفاعلية للعملاء لإدارة حساباتهم وتسديد الفواتير بنقرة زر.",
+        prompt: "ما نوع هذا الاتصال المعتمد على تكنولوجيا المعلومات؟",
+        options: [
+          { text: "الاتصال الرقمي", fr: "Communication digitale", isCorrect: true },
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: false },
+          { text: "الاتصال الكتابي", fr: "Communication écrite", isCorrect: false },
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: false }
+        ],
+        hint: "البيئة والوسيط هي شبكة الإنترنت والمنصات والتطبيقات الرقمية الحديثة.",
+        explanation: "إجابة صحيحة! الاتصال الرقمي (Communication digitale) يعتمد على شبكة الويب، التطبيقات، المنصات الإلكترونية، والبريد الإلكتروني."
+      },
+      // 13. حسب الطبيعة - الرسمي
+      {
+        id: "nat_formal",
+        category: "حسب طبيعة الاتصال (Nature)",
+        scenario: "أصدر مجلس الإدارة مقرراً رسمياً مسجلاً برقم تسلسلي وفق الهيكل التنظيمي المعتمد، يحدد مهام وصلاحيات مدير المبيعات الجديد وفق القوانين الداخلية.",
+        prompt: "ما نوع هذا الاتصال حسب طبيعته وقنواته؟",
+        options: [
+          { text: "الاتصال الرسمي", fr: "Communication formelle", isCorrect: true },
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: false },
+          { text: "الاتصال المجتمعي", fr: "Communication sociétale", isCorrect: false },
+          { text: "الاتصال الشفهي", fr: "Communication orale", isCorrect: false }
+        ],
+        hint: "يتبع القنوات المحددة رسمياً في اللوائح والمسالك الإدارية المعتمدة للمؤسسة وله حجية قانونية.",
+        explanation: "أحسنت! الاتصال الرسمي (Communication formelle) يخضع للقنوات والإجراءات والقواعد التنظيمية المعتمدة في المؤسسة."
+      },
+      // 14. حسب الطبيعة - غير الرسمي
+      {
+        id: "nat_informal",
+        category: "حسب طبيعة الاتصال (Nature)",
+        scenario: "تداول مجموعة من الموظفين أثناء تناولهم القهوة في كافتيريا المؤسسة شائعات وتوقعات عفوية حول احتمال تغيير موعد الإجازة السنوية دون وجود أي منشور رسمي.",
+        prompt: "ما تصنيف هذا الاتصال التلقائي بين الأفراد؟",
+        options: [
+          { text: "الاتصال غير الرسمي", fr: "Communication informelle", isCorrect: true },
+          { text: "الاتصال الرسمي", fr: "Communication formelle", isCorrect: false },
+          { text: "الاتصال المؤسسي", fr: "Communication institutionnelle", isCorrect: false },
+          { text: "الاتصال الخارجي", fr: "Communication externe", isCorrect: false }
+        ],
+        hint: "تواصل عفوي ينشأ عن العلاقات الإنسانية والاجتماعية بين العمال خارج القنوات والقوانين الرسمية.",
+        explanation: "رائع! الاتصال غير الرسمي (Communication informelle) ينشأ تلقائياً بدافع العلاقات الإنسانية والاجتماعية خارج القنوات الرسمية."
+      },
+      // 15. حسب الطبيعة - المباشر
+      {
+        id: "nat_direct",
+        category: "حسب طبيعة الاتصال (Nature)",
+        scenario: "نظمت المؤسسة أيام 'الأبواب المفتوحة' في مقرها، حيث التقى مسؤولو الشركة بالزبائن مباشرة وجهاً لوجه دون استئجار أي وكالة تسويق أو تدخل وسيط إعلامي.",
+        prompt: "ما نوع هذا الاتصال من حيث وجود وسيط أو عدمه؟",
+        options: [
+          { text: "الاتصال المباشر", fr: "Communication directe", isCorrect: true },
+          { text: "الاتصال غير المباشر", fr: "Communication indirecte", isCorrect: false },
+          { text: "الاتصال القطري", fr: "Communication diagonale", isCorrect: false },
+          { text: "الاتصال الرقمي", fr: "Communication digitale", isCorrect: false }
+        ],
+        hint: "العلاقة مباشرة تماماً بين باعث الرسالة والمستقبل، دون أي طرف ثالث أو وسيط وسائطي بينهما.",
+        explanation: "صحيح! الاتصال المباشر (Communication directe) يربط المؤسسة بجمهورها وجهاً لوجه وبصورة حية دون أي وسيط خارجي."
+      },
+      // 16. حسب الطبيعة - غير المباشر
+      {
+        id: "nat_indirect",
+        category: "حسب طبيعة الاتصال (Nature)",
+        scenario: "تعاقدت الشركة مع وكالة علاقات عامة وشبكة من الصحف والمؤثرين على وسائل التواصل لنقل رسائلها وشرح جودة خدماتها للمستهلكين نيابة عنها.",
+        prompt: "ما نوع هذا الاتصال الذي يعتمد على طرف ثالث؟",
+        options: [
+          { text: "الاتصال غير المباشر", fr: "Communication indirecte", isCorrect: true },
+          { text: "الاتصال المباشر", fr: "Communication directe", isCorrect: false },
+          { text: "الاتصال الداخلي", fr: "Communication interne", isCorrect: false },
+          { text: "الاتصال الأفقي", fr: "Communication horizontale", isCorrect: false }
+        ],
+        hint: "الرسالة لا تذهب مباشرة من المؤسسة إلى المتلقي، بل تمر عبر وسيط خارجي (وكالة إعلامية، صحفيين، مؤثرين).",
+        explanation: "ممتاز! الاتصال غير المباشر (Communication indirecte) يمر عبر وسيط خارجي مثل وسائل الإعلام، وكالات الإعلان، أو الشخصيات المؤثرة."
+      }
+    ];
+
+    /* ==========================================================
+       Master Summary Data for Reference Screen
+       ========================================================== */
+    const masterReference = [
+      {
+        title: "الاتصال الأفقي (Horizontale)",
+        category: "حسب الاتجاه",
+        desc: "بين موظفين في نفس المستوى الإداري لتحقيق التنسيق وتبادل الخبرات وتكامل المهام."
+      },
+      {
+        title: "الاتصال العمودي (Verticale)",
+        category: "حسب الاتجاه",
+        desc: "بين مستويات إدارية مختلفة: هابط (أوامر وتوجيهات) أو صاعد (تقارير وشكاوى واقتراحات)."
+      },
+      {
+        title: "الاتصال القطري (Diagonale)",
+        category: "حسب الاتجاه",
+        desc: "بين أفراد في مصالح ومستويات وظيفية متباينة لتجاوز الروتين الإداري وتسريع الإجراءات."
+      },
+      {
+        title: "الاتصال الداخلي (Interne)",
+        category: "حسب الجمهور",
+        desc: "يستهدف العاملين والموظفين داخل المؤسسة لرفع الروح المعنوية والانتماء والتحفيز."
+      },
+      {
+        title: "الاتصال الخارجي (Externe)",
+        category: "حسب الجمهور",
+        desc: "موجه للبيئة المحيطة كالمتعاملين، الزبائن، الموردين، البنوك ووسائل الإعلام."
+      },
+      {
+        title: "الاتصال المؤسسي (Institutionnelle)",
+        category: "حسب الجمهور",
+        desc: "يهدف لصناعة وترسيخ سمعة المؤسسة، هويتها البصرية وصورتها الإيجابية لدى الجمهور."
+      },
+      {
+        title: "الاتصال المجتمعي (Sociétale)",
+        category: "حسب الجمهور",
+        desc: "يعكس المسؤولية الاجتماعية للمؤسسة ومشاركتها في حماية البيئة والتنمية المستدامة."
+      },
+      {
+        title: "الاتصال الشفهي (Orale)",
+        category: "حسب الوسيلة",
+        desc: "يعتمد على الكلمة المنطوقة والصوت كالاجتماعات، المقابلات الشخصية، والخطابات."
+      },
+      {
+        title: "الاتصال الكتابي (Écrite)",
+        category: "حسب الوسيلة",
+        desc: "يوظف الوثائق المحررة كالمذكرات، التقارير والمراسلات، ويتميز بالحجية القانونية والتوثيق."
+      },
+      {
+        title: "الاتصال البصري (Visuelle)",
+        category: "حسب الوسيلة",
+        desc: "يعتمد على حاسة النظر من خلال الملصقات، الألوان، الرموز والشعارات التوجيهية."
+      },
+      {
+        title: "الاتصال السمعي البصري (Audiovisuelle)",
+        category: "حسب الوسيلة",
+        desc: "يدمج الصوت والصورة المتحركة في صيغة فيديو كالأفلام الوثائقية والريبورتاجات الترويجية."
+      },
+      {
+        title: "الاتصال الرقمي (Digitale)",
+        category: "حسب الوسيلة",
+        desc: "يرتكز على تكنولوجيا المعلومات والإنترنت، المواقع، التطبيقات والشبكات الاجتماعية."
+      },
+      {
+        title: "الاتصال الرسمي (Formelle)",
+        category: "حسب الطبيعة",
+        desc: "يتم وفق القنوات المعتمدة المكتوبة والمحددة في الهيكل التنظيمي للمؤسسة."
+      },
+      {
+        title: "الاتصال غير الرسمي (Informelle)",
+        category: "حسب الطبيعة",
+        desc: "تواصل عفوي ينشأ عن العلاقات الإنسانية بين الزملاء خارج الإجراءات والقنوات الرسمية."
+      },
+      {
+        title: "الاتصال المباشر (Directe)",
+        category: "حسب الطبيعة",
+        desc: "تواصل حي بين المؤسسة والجمهور المستهدف وجهاً لوجه دون أي وسيط خارجي."
+      },
+      {
+        title: "الاتصال غير المباشر (Indirecte)",
+        category: "حسب الطبيعة",
+        desc: "يتم عبر وسيط خارجي كوكالات الدعاية، الصحافة والإعلام، أو المؤثرين."
+      }
+    ];
+
+    /* ==========================================================
+       Quiz State & Logic
+       ========================================================== */
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let currentAnsweredCorrectly = false;
+    let attemptsOnCurrent = 0;
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function initQuiz() {
+      currentQuestions = [...questionBank]; // standard order first
+      currentIndex = 0;
+      score = 0;
+      document.getElementById('liveScore').textContent = '0';
+      document.getElementById('quizCard').style.display = 'flex';
+      document.getElementById('resultsCard').style.display = 'none';
+      renderQuestion();
+      populateMasterSummary();
+    }
+
+    function restartQuiz() {
+      currentQuestions = shuffleArray(questionBank);
+      currentIndex = 0;
+      score = 0;
+      document.getElementById('liveScore').textContent = '0';
+      document.getElementById('quizCard').style.display = 'flex';
+      document.getElementById('resultsCard').style.display = 'none';
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuestion() {
+      const q = currentQuestions[currentIndex];
+      currentAnsweredCorrectly = false;
+      attemptsOnCurrent = 0;
+
+      // Meta & Progress
+      const currentNumber = currentIndex + 1;
+      const total = currentQuestions.length;
+      document.getElementById('questionCounter').textContent = `السؤال ${currentNumber} من ${total}`;
+      document.getElementById('categoryTag').textContent = `المحور: ${q.category}`;
+      const percent = Math.round((currentNumber / total) * 100);
+      document.getElementById('progressFill').style.width = `${percent}%`;
+      document.getElementById('percentLabel').textContent = `${percent}%`;
+
+      // Texts
+      document.getElementById('scenarioText').textContent = q.scenario;
+      document.getElementById('questionPrompt').textContent = q.prompt || "ما نوع هذا الاتصال؟";
+
+      // Options
+      const optionsGrid = document.getElementById('optionsGrid');
+      optionsGrid.innerHTML = '';
+
+      const letters = ['أ', 'ب', 'جـ', 'د'];
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="option-letter">${letters[idx] || '•'}</span>
+            <span>
+              <strong>${opt.text}</strong>
+              <bdi class="fr-term">(${opt.fr})</bdi>
+            </span>
+          </div>
+          <span style="font-size: 0.85rem; color: #94a3b8;">اختيار</span>
+        `;
+        btn.addEventListener('click', () => handleOptionClick(idx, btn, opt));
+        optionsGrid.appendChild(btn);
+      });
+
+      // Reset Feedback & Next Button
+      const feedbackBox = document.getElementById('feedbackBox');
+      feedbackBox.classList.remove('show', 'hint', 'success');
+      document.getElementById('nextQuestionBtn').disabled = true;
+    }
+
+    function handleOptionClick(optIndex, btnElement, optionData) {
+      if (currentAnsweredCorrectly) return;
+      attemptsOnCurrent++;
+
+      const feedbackBox = document.getElementById('feedbackBox');
+      const feedbackIcon = document.getElementById('feedbackIcon');
+      const feedbackText = document.getElementById('feedbackText');
+      const nextBtn = document.getElementById('nextQuestionBtn');
+      const q = currentQuestions[currentIndex];
+
+      feedbackBox.classList.remove('show', 'hint', 'success');
+
+      if (optionData.isCorrect) {
+        // Correct Answer
+        currentAnsweredCorrectly = true;
+        btnElement.classList.add('correct');
+        playSoundSuccess();
+
+        if (attemptsOnCurrent === 1) {
+          score++;
+          document.getElementById('liveScore').textContent = score;
+        }
+
+        // Disable other options
+        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+        feedbackIcon.textContent = '🎉';
+        feedbackText.innerHTML = q.explanation;
+        feedbackBox.classList.add('show', 'success');
+        nextBtn.disabled = false;
+
+      } else {
+        // Wrong Answer
+        playSoundWrong();
+        btnElement.classList.add('wrong', 'shake-anim');
+        setTimeout(() => btnElement.classList.remove('shake-anim'), 450);
+
+        feedbackIcon.textContent = '💡';
+        feedbackText.innerHTML = `<strong>تلميح لمساعدتك:</strong> ${q.hint}`;
+        feedbackBox.classList.add('show', 'hint');
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIndex < currentQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('quizCard').style.display = 'none';
+      const resultsCard = document.getElementById('resultsCard');
+      resultsCard.style.display = 'block';
+
+      const total = currentQuestions.length;
+      const percent = Math.round((score / total) * 100);
+
+      document.getElementById('finalScoreDisplay').textContent = `${score} / ${total}`;
+      document.getElementById('finalPercentDisplay').textContent = `${percent}%`;
+
+      const badge = document.getElementById('resultsBadge');
+      const title = document.getElementById('resultsTitle');
+      const msg = document.getElementById('resultsMessage');
+
+      if (percent === 100) {
+        badge.textContent = '🌟';
+        title.textContent = 'علامة كاملة! خبير متميز في الاتصال المؤسسي والتنظيمي';
+        msg.textContent = 'أداء استثنائي وعلامة تامة! لديك استيعاب شامل ومتقن لجميع معايير وأنواع الاتصال الـ 16.';
+        playSoundFanfare();
+        startConfetti(4000);
+      } else if (percent >= 80) {
+        badge.textContent = '🏆';
+        title.textContent = 'ممتاز جداً! استيعاب عميق للدرس';
+        msg.textContent = 'أحسنت! تمكنت من تمييز الفروق الدقيقة بين مختلف الوضعيات والأنواع باقتدار.';
+        playSoundSuccess();
+        startConfetti(2500);
+      } else if (percent >= 60) {
+        badge.textContent = '👍';
+        title.textContent = 'مستوى جيد جداً!';
+        msg.textContent = 'لديك فهم عام ممتاز، راجع البطاقة التلخيصية أدناه لترسيخ الفروق الدقيقة ثم أعد المحاولة.';
+        playSoundSuccess();
+      } else {
+        badge.textContent = '📖';
+        title.textContent = 'محاولة جيدة! واصل التعلم';
+        msg.textContent = 'ننصحك بقراءة ملخص الدرس السريع في البطاقة المرجعية أدناه، ثم أعد الكويز لتحقيق العلامة الكاملة.';
+        playSoundWrong();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function populateMasterSummary() {
+      const grid = document.getElementById('summaryGrid');
+      grid.innerHTML = '';
+      masterReference.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'summary-card-item';
+        card.innerHTML = `
+          <h5>
+            <span>📌</span>
+            <span>${item.title}</span>
+          </h5>
+          <div style="font-size: 0.76rem; color: var(--primary); margin-bottom: 2px; font-weight: 700;">${item.category}</div>
+          <p>${item.desc}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ==========================================================
+       Celebration Confetti
+       ========================================================== */
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function startConfetti(durationMs = 4000) {
+      confettiParticles = [];
+      const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+      for (let i = 0; i < 90; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * -confettiCanvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 4 + 3,
+          rot: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 8
+        });
+      }
+
+      if (!confettiAnimId) animateConfetti();
+
+      setTimeout(() => {
+        confettiParticles = [];
+      }, durationMs);
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = 0; i < confettiParticles.length; i++) {
+        const p = confettiParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vRot;
+
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rot * Math.PI) / 180);
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        confettiCtx.restore();
+
+        if (p.y > confettiCanvas.height) {
+          p.y = -20;
+          p.x = Math.random() * confettiCanvas.width;
+        }
+      }
+
+      if (confettiParticles.length > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiAnimId = null;
+      }
+    }
+
+    // Start on load
+    window.addEventListener('DOMContentLoaded', initQuiz);
+  </script>
+</body>
+</html>
