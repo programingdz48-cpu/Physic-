@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>نماذج الاتصال الكلاسيكية والتفاعلية (مطبوعة نظريات الاتصال)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --success-border: #86efac;
+      --error: #ea580c;
+      --error-light: #fff7ed;
+      --error-border: #fdba74;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      padding: 16px 12px 32px;
+    }
+
+    .app-container {
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    header {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #e2e8f0;
+      color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .sound-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .sound-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .topic-badge {
+      align-self: flex-start;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 3px 12px;
+      border-radius: 999px;
+    }
+
+    h1 {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .header-sub {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    /* Stage Navigation Tabs */
+    .stages-nav {
+      display: flex;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stage-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 8px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .stage-tab-btn:hover {
+      color: var(--primary);
+      background: #f8fafc;
+    }
+
+    .stage-tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Common Card Styling */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================
+       Stage 1: Model Explorer
+       ========================================================== */
+    .models-pill-menu {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+    }
+
+    .models-pill-menu::-webkit-scrollbar {
+      height: 4px;
+    }
+    .models-pill-menu::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+
+    .model-pill-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .model-pill-btn:hover {
+      background: #e2e8f0;
+      color: var(--primary);
+    }
+
+    .model-pill-btn.active {
+      background: #1e40af;
+      color: #ffffff;
+      border-color: #1e40af;
+    }
+
+    .model-detail-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .model-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .model-theorist-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .model-year-badge {
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .model-nature-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #e0f2fe;
+      color: #0369a1;
+      margin-top: 4px;
+    }
+
+    .model-core-idea {
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.65;
+      background: #ffffff;
+      border-right: 3px solid var(--primary);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Diagram Canvas / Visual */
+    .diagram-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 14px;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .diagram-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flowchart-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      min-width: 280px;
+    }
+
+    .flow-node {
+      background: #ffffff;
+      border: 2px solid #94a3b8;
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .flow-node:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .flow-node.active-node {
+      border-color: var(--primary);
+      background: #dbeafe;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+
+    .flow-node.highlight-noise {
+      border-color: #ea580c;
+      background: #fff7ed;
+      color: #9a3412;
+    }
+
+    .flow-node.highlight-feedback {
+      border-color: #16a34a;
+      background: #f0fdf4;
+      color: #15803d;
+    }
+
+    .flow-arrow {
+      font-size: 1.2rem;
+      color: #64748b;
+      font-weight: 800;
+    }
+
+    /* Interactive Element Details Box */
+    .element-info-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.86rem;
+      color: #1e3a8a;
+      line-height: 1.55;
+      animation: popIn 0.2s ease-out;
+    }
+
+    .element-info-card strong {
+      color: #1e40af;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Critiques Box */
+    .critiques-box {
+      background: #fff7ed;
+      border: 1px solid var(--error-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.85rem;
+      color: #9a3412;
+      line-height: 1.55;
+    }
+
+    .critiques-box h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================
+       Stage 2: Quiz
+       ========================================================== */
+    .quiz-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      height: 100%;
+      width: 6.66%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .scenario-box {
+      background: #f8fafc;
+      border-right: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 18px;
+    }
+
+    .scenario-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scenario-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .question-prompt {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 10px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      text-align: right;
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      outline: none;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #93c5fd;
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .option-btn.correct {
+      background: var(--success-light) !important;
+      border-color: var(--success) !important;
+      color: #14532d !important;
+    }
+
+    .option-btn.wrong {
+      background: var(--error-light) !important;
+      border-color: var(--error) !important;
+      color: #7c2d12 !important;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-letter {
+      background: #f1f5f9;
+      color: #475569;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .option-btn.correct .option-letter {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.wrong .option-letter {
+      background: var(--error);
+      color: #ffffff;
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      animation: popIn 0.25s ease-out;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .feedback-box.show {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feedback-box.hint {
+      background: var(--error-light);
+      border: 1px solid var(--error-border);
+      color: #9a3412;
+    }
+
+    .feedback-box.success {
+      background: var(--success-light);
+      border: 1px solid var(--success-border);
+      color: #15803d;
+    }
+
+    .actions-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .score-tracker-pill {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      background: #cbd5e1;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .shake-anim {
+      animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-3px, 0, 0); }
+      20%, 80% { transform: translate3d(5px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+      40%, 60% { transform: translate3d(5px, 0, 0); }
+    }
+
+    /* ==========================================================
+       Stage 3: Comparison Table & Results
+       ========================================================== */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table.comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+      font-size: 0.86rem;
+      background: #ffffff;
+      min-width: 640px;
+    }
+
+    table.comparison-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 800;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+
+    table.comparison-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    table.comparison-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .results-card {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .results-badge {
+      width: 76px;
+      height: 76px;
+      background: linear-gradient(135deg, #fef08a, #facc15);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: 0 8px 16px -2px rgba(250, 204, 21, 0.5);
+    }
+
+    .results-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .results-score-display {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .results-sub {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    /* Term styling */
+    .foreign-term {
+      direction: ltr;
+      display: inline-block;
+      font-size: 0.85em;
+      color: #475569;
+      font-weight: 700;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0 2px;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Header & Navigation -->
+    <header>
+      <div class="nav-bar">
+        <div class="nav-links-group">
+          <a href="index.html" class="back-btn" title="الرجوع لدرس المعلم في المستوي">
+            <span>←</span>
+            <span>الرئيسية (رياضيات)</span>
+          </a>
+          <a href="communication-quiz.html" class="back-btn" title="كويز أنواع الاتصال الـ 16">
+            <span>🎯</span>
+            <span>كويز أنواع الاتصال</span>
+          </a>
+        </div>
+        <button id="soundToggleBtn" class="sound-btn" title="كتم/تشغيل الصوت" aria-label="الصوت">
+          🔊
+        </button>
+      </div>
+
+      <div class="header-content">
+        <span class="topic-badge">مقياس نظريات الإعلام والاتصال 1 • المحاضرة الثانية</span>
+        <h1>نماذج الاتصال الكلاسيكية والتفاعلية</h1>
+        <p class="header-sub">
+          دراسة وتطبيق للنماذج الـ 6 الواردة في المطبوعة الأكاديمية (ص 23 – 37): أرسطو، بيرلو، لاسويل، شانون وويفر، ديفلور، وأوزغود وشرام.
+        </p>
+      </div>
+    </header>
+
+    <!-- 3-Stage Navigation Tabs -->
+    <nav class="stages-nav">
+      <button class="stage-tab-btn active" id="tab-stage1" onclick="switchStage(1)">
+        <span>🗺️</span>
+        <span>1. مستكشف النماذج</span>
+      </button>
+      <button class="stage-tab-btn" id="tab-stage2" onclick="switchStage(2)">
+        <span>📝</span>
+        <span>2. الاختبار الشامل (15 سؤال)</span>
+      </button>
+      <button class="stage-tab-btn" id="tab-stage3" onclick="switchStage(3)">
+        <span>📊</span>
+        <span>3. جدول المقارنة والملخص</span>
+      </button>
+    </nav>
+
+    <!-- =========================================================
+         STAGE 1: INTERACTIVE MODEL EXPLORER
+         ========================================================= -->
+    <section class="section-card" id="stage1-view">
+      <!-- Models Menu -->
+      <div class="models-pill-menu" id="modelsMenu">
+        <button class="model-pill-btn active" onclick="loadModel(0)">1. أرسطو (Aristotle)</button>
+        <button class="model-pill-btn" onclick="loadModel(1)">2. بيرلو (Berlo's SMCR)</button>
+        <button class="model-pill-btn" onclick="loadModel(2)">3. لاسويل (Lasswell 1948)</button>
+        <button class="model-pill-btn" onclick="loadModel(3)">4. شانون وويفر (1948)</button>
+        <button class="model-pill-btn" onclick="loadModel(4)">5. ديفلور (DeFleur 1970)</button>
+        <button class="model-pill-btn" onclick="loadModel(5)">6. أوزغود وشرام (1954)</button>
+      </div>
+
+      <!-- Active Model Detail Panel -->
+      <div class="model-detail-panel">
+        <div class="model-header-row">
+          <div>
+            <h2 class="model-theorist-title" id="mTitle">النموذج الخطي لأرسطو (Aristotle's Model)</h2>
+            <span class="model-nature-tag" id="mNature">نموذج خطي أحادي الاتجاه (خطابي بلاغي)</span>
+          </div>
+          <span class="model-year-badge" id="mYear">منذ أكثر من 2300 عام</span>
+        </div>
+
+        <div class="model-core-idea" id="mCoreIdea">
+          قدم أرسطو هذا النموذج في كتابه الشهير "فن الخطابة" (<span class="foreign-term">Rhetoric</span>)، ويعد أقدم نموذج في تاريخ نظريات الاتصال. يقوم على ثلاثية أساسية: الخطيب (المرسل)، الخطبة (الرسالة)، والجمهور (المستقبل).
+        </div>
+
+        <!-- Interactive Flowchart Diagram -->
+        <div class="diagram-wrapper">
+          <div class="diagram-hint">
+            <span>💡</span>
+            <span>اضغط على أي عنصر في المخطط لقراءة دوره الأكاديمي كما ورد في المطبوعة:</span>
+          </div>
+          <div class="flowchart-container" id="diagramContainer">
+            <!-- Dynamic Nodes -->
+          </div>
+        </div>
+
+        <!-- Active Element Description Box -->
+        <div class="element-info-card" id="elementInfoBox">
+          <strong id="elementInfoTitle">عنصر محدد</strong>
+          <span id="elementInfoDesc">اضغط على أي عنصر في المخطط التفاعلي أعلاه لاستكشاف تفاصيله.</span>
+        </div>
+
+        <!-- Critiques Box -->
+        <div class="critiques-box" id="mCritiquesBox">
+          <h4><span>⚠️</span> أبرز الانتقادات والحدود (حسب المطبوعة):</h4>
+          <p id="mCritiquesText">
+            التركيز الزائد على المنطق قد يؤدي إلى تجاهل العواطف الإنسانية، بينما الاعتماد الكبير على المشاعر قد يضعف مصداقية الحجة. كما أنه نموذج خطي يفتقر لوجود تغذية راجعة منتظمة.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn-primary" onclick="switchStage(2)">
+          <span>الانتقال للاختبار التطبيقي</span>
+          <span>←</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         STAGE 2: SCENARIO & CONCEPT QUIZ (15 QUESTIONS)
+         ========================================================= -->
+    <section class="section-card" id="stage2-view" style="display: none;">
+      <!-- Progress Meta -->
+      <div class="quiz-progress-meta">
+        <span id="qCounter">السؤال 1 من 15</span>
+        <span class="category-tag" id="qCategory">النموذج: أرسطو</span>
+        <span id="qPercent">6%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="quizProgressFill"></div>
+      </div>
+
+      <!-- Question Scenario Box -->
+      <div class="scenario-box">
+        <div class="scenario-label">
+          <span>💼</span>
+          <span id="qContextType">سؤال تطبيقي / مفهومي:</span>
+        </div>
+        <div class="scenario-text" id="qScenarioText">
+          جاري تحميل السؤال...
+        </div>
+        <div class="question-prompt" id="qPromptText">
+          اختر الإجابة الصحيحة الدقيقة:
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="options-grid" id="qOptionsGrid">
+        <!-- Rendered in JS -->
+      </div>
+
+      <!-- Feedback Box -->
+      <div class="feedback-box" id="qFeedbackBox">
+        <span class="feedback-icon" id="qFeedbackIcon">💡</span>
+        <div id="qFeedbackText"></div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="actions-footer">
+        <div class="score-tracker-pill">
+          <span>النقاط المكتسبة: </span>
+          <strong id="liveQuizScore" style="color: var(--primary);">0</strong>
+          <span> / 15</span>
+        </div>
+        <button class="btn-primary" id="nextQuizBtn" disabled onclick="nextQuizQuestion()">
+          <span>السؤال التالي</span>
+          <span>←</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         STAGE 3: RESULTS & COMPARISON TABLE
+         ========================================================= -->
+    <section class="section-card" id="stage3-view" style="display: none;">
+      <!-- Results Badge Box -->
+      <div class="results-card" id="resultsSummarySection">
+        <div class="results-badge" id="resultsBadgeIcon">🏆</div>
+        <h2 class="results-title" id="resultsTitle">مستوى متقدم في نظريات الاتصال</h2>
+        <div class="results-score-display">
+          نتيجتك: <span id="finalScoreVal">15 / 15</span> (<span id="finalPercentVal">100%</span>)
+        </div>
+        <p class="results-sub" id="resultsFeedbackMsg">
+          أحسنت! استيعاب دقيق وشامل لكافة نماذج الاتصال وعناصرها الفلسفية والهندسية والدائرية.
+        </p>
+
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+          <button class="btn-primary" onclick="restartQuiz()">
+            <span>🔄 إعادة الاختبار (مع ترتيب عشوائي)</span>
+          </button>
+          <button class="btn-secondary" onclick="switchStage(1)">
+            <span>🗺️ مراجعة مستكشف النماذج</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Full Comparison Table -->
+      <div>
+        <h3 style="font-family: 'Cairo', sans-serif; font-size: 1.12rem; color: #1e3a8a; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <span>📊</span>
+          <span>الجدول المقارن الشامل للنماذج الستة (مطبوعة المحاضرات ص 23 - 37):</span>
+        </h3>
+
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>النموذج والمنظر</th>
+                <th>التاريخ</th>
+                <th>طبيعة النموذج</th>
+                <th>أهم العناصر</th>
+                <th>الإضافة والإسهام العلمي</th>
+                <th>أهم الانتقادات</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      محتوى أكاديمي مطابق لمطبوعة "نظريات الإعلام والاتصال 1" (ص 23 – 37) • جامعة البليدة 2 لونيسي علي
+    </footer>
+
+  </div>
+
+  <script>
+    /* ==========================================================
+       Sound Effects (Web Audio API - Offline)
+       ========================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, duration, type = 'sine', delay = 0) {
+      if (!soundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      setTimeout(() => {
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          console.warn(e);
+        }
+      }, delay * 1000);
+    }
+
+    function playSoundSuccess() {
+      playTone(523.25, 0.1, 'triangle', 0);
+      playTone(659.25, 0.1, 'triangle', 0.08);
+      playTone(783.99, 0.22, 'triangle', 0.16);
+    }
+
+    function playSoundWrong() {
+      playTone(280, 0.15, 'sawtooth', 0);
+      playTone(220, 0.22, 'sawtooth', 0.1);
+    }
+
+    function playSoundFanfare() {
+      playTone(440, 0.12, 'triangle', 0);
+      playTone(554.37, 0.12, 'triangle', 0.12);
+      playTone(659.25, 0.12, 'triangle', 0.24);
+      playTone(880, 0.45, 'triangle', 0.38);
+    }
+
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.textContent = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) playTone(440, 0.08, 'sine');
+    });
+
+    /* ==========================================================
+       Stage Navigation (Tabs)
+       ========================================================== */
+    let currentStage = 1;
+
+    function switchStage(stageNum) {
+      currentStage = stageNum;
+      for (let i = 1; i <= 3; i++) {
+        const view = document.getElementById(`stage${i}-view`);
+        const tabBtn = document.getElementById(`tab-stage${i}`);
+        if (view) view.style.display = (i === stageNum) ? 'flex' : 'none';
+        if (tabBtn) tabBtn.classList.toggle('active', i === stageNum);
+      }
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
+
+    /* ==========================================================
+       Stage 1 Data: The 6 Models from PDF (Pages 23 - 37)
+       ========================================================== */
+    const modelsData = [
+      // 1. Aristotle
+      {
+        title: "النموذج الخطي لأرسطو (Aristotle's Model)",
+        year: "منذ أكثر من 2300 عام",
+        nature: "خطي أحادي الاتجاه (خطابي وبلاغي)",
+        coreIdea: "قدمه الفيلسوف أرسطو في كتابه 'فن الخطابة' (Rhetoric). يعتبر أقدم نموذج في تاريخ نظريات الاتصال والخطابة، ويقوم على ثلاثية الخطيب والخطبة والجمهور، مع أربعة عناصر في تحليل الخطاب: المخاطب (Ethos)، الموضوع (Pathos)، البرهان (Logos)، والنتيجة (Conclusion).",
+        nodes: [
+          { name: "الخطيب (Ethos)", desc: "مصداقية المتحدث وسلطته وخبرته. اعتبر أرسطو أن ثقة الجمهور في المتحدث تجعلهم أكثر استعداداً لقبول أفكاره." },
+          { name: "الخطبة (Logos)", desc: "المحتوى والبرهان المنطقي المبني على أدلة دقيقة وموثوقة كالأبحاث والشهادات لإثبات الحجة." },
+          { name: "الجمهور (Pathos)", desc: "المتلقي واستثارة عواطفه (الخوف، السعادة، الحزن) لجذب انتباهه ودعم وجهة النظر." },
+          { name: "النتيجة (Conclusion)", desc: "تلخيص الحجة والاستنتاجات المستخلصة، مما يترك فكرة يفكر فيها الجمهور بعد انتهاء الخطاب." }
+        ],
+        critiques: "التركيز الزائد على المنطق قد يتجاهل العواطف الإنسانية، بينما الاعتماد المفرط على المشاعر قد يضعف مصداقية الحجة. كما أنه نموذج خطي أحادي الاتجاه يفتقر لرجع الصدى (Feedback)."
+      },
+      // 2. Berlo's SMCR
+      {
+        title: "نموذج ديفيد بيرلو (Berlo's SMCR Model)",
+        year: "1960",
+        nature: "خطي أحادي الاتجاه (اجتماعي وسلوكي)",
+        coreIdea: "أسس ديفيد بيرلو نموذجه الرباعي الشهير SMCR (المصدر، الرسالة، القناة، المستقبل). يركز على أن المصدر والمتلقي متماثلان تماماً ويخضعان لنفس العوامل الأربعة، مع ربط قنوات الاتصال بالحواس الخمس للإنسان.",
+        nodes: [
+          { name: "المصدر (Source)", desc: "الشخص أو المنظمة باعثة الرسالة، وتتأثر بـ 4 عوامل: مهارات الاتصال، الاتجاهات، مستوى المعرفة، والموقف داخل النظام الاجتماعي والثقافي." },
+          { name: "الرسالة (Message)", desc: "تتضمن: المحتوى (Content)، العناصر (Elements)، المعالجة (Treatment)، البنية (Structure)، والشفرة (Code)." },
+          { name: "القناة (Channel)", desc: "ربطها بيرلو بحواس الإنسان الخمس: البصر (Seeing)، السمع (Hearing)، اللمس (Touching)، الشم (Smelling)، والتذوق (Tasting)." },
+          { name: "المستقبل (Receiver)", desc: "الطرف المستهدف الذي يمتلك جهاز فك التشفير، ويخضع لنفس العوامل الأربعة المؤثرة في المصدر." }
+        ],
+        critiques: "الافتقار التام للتغذية الراجعة (Feedback)، التبسيط المفرط بتجاهل الضوضاء والسياق، وافتراض دور سلبي للمستقبل دون مراعاة مشاركته النشطة."
+      },
+      // 3. Lasswell 1948
+      {
+        title: "نموذج هارولد لاسويل (Harold Lasswell's Model)",
+        year: "1948",
+        nature: "خطي أثرّي (إعلامي وسياسي)",
+        coreIdea: "قدمه في مقالته الشهيرة 'بنية ووظيفة الاتصال في المجتمع'. صاغ عمليته في عبارته الخماسية الشهيرة: 'من يقول، ماذا، وبأي وسيلة، ولمن، وبأي تأثير؟'، مدخلاً عنصر الأثر (Effect) لأول مرة كعنصر محوري في التحليل الإعلامي.",
+        nodes: [
+          { name: "من؟ (Who)", desc: "المرسل أو مصدر الرسالة (Communicator)، ويرتبط بدراسة وتحليل السيطرة والتحكم." },
+          { name: "يقول ماذا؟ (Says What)", desc: "محتوى الرسالة (Message)، ويرتبط بمجال تحليل المضمون والمحتوى الإعلامي." },
+          { name: "بأي قناة؟ (In Which Channel)", desc: "الوسيلة (تلفزيون، راديو، مطبوعات، إنترنت)، ويرتبط بتحليل الوسائل." },
+          { name: "لمن؟ (To Whom)", desc: "الجمهور أو المتلقي (Receiver)، ويرتبط بأبحاث ودراسات تحليل الجمهور." },
+          { name: "وبأي تأثير؟ (With what effect?)", desc: "أهم إسهامات لاسويل: نتيجة وأثر الرسالة المعرفي والوجداني والسلوكي على المتلقي." }
+        ],
+        critiques: "طبيعة خطية أحادية الاتجاه، غياب التغذية الراجعة، إهمال السياق الاجتماعي والثقافي، وتجاهل الضوضاء والعوامل المشوشة الخارجية."
+      },
+      // 4. Shannon-Weaver 1948
+      {
+        title: "نموذج شانون وويفر الرياضي (Shannon & Weaver Model)",
+        year: "1948 / 1949",
+        nature: "خطي ميكانيكي / رياضي وهندسي",
+        coreIdea: "وضعه كلود شانون ووارن ويفر في مختبرات بل للهاتف (Bell Labs). ركز على الجوانب الهندسية لنقل الإشارات. ميزته التاريخية أنه أول نموذج أدخل مفهوم 'مصدر الضوضاء والتشويش' (Noise Source) كعامل يؤدي لاختلاف الإشارة المرسلة عن المستقبلة.",
+        nodes: [
+          { name: "مصدر المعلومات (Source)", desc: "المصدر الذي ينتج الرسالة الأصلية المراد توصيلها." },
+          { name: "جهاز الإرسال (Transmitter)", desc: "يقوم بتشفير الرسالة وتحويلها إلى إشارات ملائمة لطبيعة القناة (مثل تحويل الصوت لنبضات)." },
+          { name: "القناة (Channel)", desc: "الوسيط الناقل للإشارة من المرسل إلى المستقبل." },
+          { name: "مصدر الضوضاء (Noise)", desc: "عامل الخلل الوظيفي والتداخل الخارجي الذي يشوش الإشارة في القناة ويسبب فشل الاتصال.", isNoise: true },
+          { name: "جهاز الاستقبال (Receiver)", desc: "يعكس وظيفة الإرسال؛ يقوم بفك تشفير الإشارة وإعادة بناء الرسالة منها." },
+          { name: "الوجهة (Destination)", desc: "الشخص أو الجهاز النهائي المستهدف بالرسالة." }
+        ],
+        critiques: "نموذج هندسي آلي صُمم للاتصالات السلكية ولا يراعي الطبيعة المعقدة للتواصل البشري، كما يفتقر لرجع الصدى (Feedback) والسياق الإنساني."
+      },
+      // 5. DeFleur 1970
+      {
+        title: "تطوير ملفين ديفلور (DeFleur's Development)",
+        year: "1970",
+        nature: "دائري تفاعلي استكمالي لنموذج شانون",
+        coreIdea: "طور ملفين ديفلور نموذج شانون وويفر لمعالجة نقائصه. أضاف حلقة التغذية الراجعة (Feedback loop) وجهاز رجع الصدى، وبيّن كيف يتحول المعنى لرسالة ثم لمعلومات تعود مرة أخرى للمصدر لتمكينه من تعديل رسالته لتحقيق 'تطابق المعاني' (Isomorphism).",
+        nodes: [
+          { name: "المصدر (Source)", desc: "ينتج المعنى ويحوله إلى رسالة، ويستفيد من التغذية الراجعة لتعديل صيغته." },
+          { name: "الإرسال والقناة", desc: "تحويل الرسالة لمعلومات ونقلها عبر وسيط تقني أو جماهيري." },
+          { name: "المتلقي والوجهة", desc: "يفك تشفير المعلومات إلى رسالة ثم يترجمها إلى معنى مدرك لديه." },
+          { name: "حلقة التغذية الراجعة (Feedback)", desc: "الإضافة الجوهرية لديفلور: تنقل رد الفعل من الوجهة للمصدر لتقليل التشويش وتحقيق تطابق المعاني.", isFeedback: true }
+        ],
+        critiques: "في الاتصال الجماهيري تكون ردود الفعل محدودة أو متأخرة وغير مباشرة، والتطابق التام بين المعاني نادراً ما يكون مثالياً في الواقع."
+      },
+      // 6. Osgood & Schramm 1954
+      {
+        title: "نموذج أوزغود وولبر شرام الدائري (Osgood & Schramm)",
+        year: "1954",
+        nature: "دائري تفاعلي غير خطي (إنساني)",
+        coreIdea: "أحدث قطيعة مع النماذج الخطية السابقة؛ قدمه تشارلز أوزغود وويلبر شرام ليؤكد أن الاتصال عملية دائرية مستمرة بين أطراف متساوية تؤدي نفس الوظائف الثلاث بالتزامن: التشفير (Encoder)، التفسير (Interpreter)، وفك التشفير (Decoder).",
+        nodes: [
+          { name: "الطرف الأول (مشفر/مفسر/مفكك)", desc: "يستقبل الرسائل ويفسرها، ثم يشفر استجابته ويبعثها كرسالة مقابلة." },
+          { name: "الرسالة (Message)", desc: "المضمون المنقول من الطرف الأول إلى الثاني." },
+          { name: "الطرف الثاني (مفكك/مفسر/مشفر)", desc: "يؤدي نفس الوظائف تماماً؛ يفك التشفير ويفسر المعنى ثم يشفر رده." },
+          { name: "التغذية الراجعة (Feedback)", desc: "الاستجابة الدائرية المنعكسة التي تحول المتلقي إلى مرسل والمرسل إلى متلقٍ بلا توقف.", isFeedback: true }
+        ],
+        critiques: "يفترض تساوي أطراف الاتصال وقدرتهم على تبادل الأدوار، وهو ما ينطبق على الاتصال الشخصي والمباشر أكثر من الاتصال الجماهيري أحادي البث."
+      }
+    ];
+
+    let currentModelIdx = 0;
+
+    function loadModel(index) {
+      currentModelIdx = index;
+      const m = modelsData[index];
+
+      // Update pills
+      document.querySelectorAll('#modelsMenu .model-pill-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === index);
+      });
+
+      // Update details
+      document.getElementById('mTitle').textContent = m.title;
+      document.getElementById('mYear').textContent = m.year;
+      document.getElementById('mNature').textContent = m.nature;
+      document.getElementById('mCoreIdea').innerHTML = m.coreIdea;
+      document.getElementById('mCritiquesText').textContent = m.critiques;
+
+      // Render flowchart
+      const container = document.getElementById('diagramContainer');
+      container.innerHTML = '';
+
+      m.nodes.forEach((node, nIdx) => {
+        const nodeEl = document.createElement('div');
+        nodeEl.className = 'flow-node';
+        if (node.isNoise) nodeEl.classList.add('highlight-noise');
+        if (node.isFeedback) nodeEl.classList.add('highlight-feedback');
+        if (nIdx === 0) nodeEl.classList.add('active-node');
+
+        nodeEl.innerHTML = `<span>${node.name}</span>`;
+        nodeEl.addEventListener('click', () => {
+          document.querySelectorAll('.flow-node').forEach(el => el.classList.remove('active-node'));
+          nodeEl.classList.add('active-node');
+          showElementDetail(node.name, node.desc);
+          playTone(550, 0.05, 'sine');
+        });
+
+        container.appendChild(nodeEl);
+
+        // Add arrow between nodes
+        if (nIdx < m.nodes.length - 1) {
+          const arrowEl = document.createElement('div');
+          arrowEl.className = 'flow-arrow';
+          arrowEl.textContent = '←';
+          container.appendChild(arrowEl);
+        }
+      });
+
+      // Load first node description
+      showElementDetail(m.nodes[0].name, m.nodes[0].desc);
+    }
+
+    function showElementDetail(title, desc) {
+      document.getElementById('elementInfoTitle').textContent = title;
+      document.getElementById('elementInfoDesc').textContent = desc;
+    }
+
+    /* ==========================================================
+       Stage 2 Data: 15 Questions based on Pages 23 - 37
+       ========================================================= */
+    const quizQuestions = [
+      // 1. أرسطو مفهومي
+      {
+        category: "أرسطو (Aristotle)",
+        context: "سؤال مفهومي (ص 23 - 24)",
+        scenario: "حدد الفيلسوف أرسطو في كتابه 'فن الخطابة' ثلاثة عناصر مركزية ترتكز عليها عملية الإقناع والتأثير في الجمهور.",
+        prompt: "ما هي هذه العناصر الثلاثة حسب تصنيف أرسطو الدقيق؟",
+        options: [
+          { text: "Ethos (مصداقية الخطيب)، Logos (المنطق والبرهان)، و Pathos (عواطف الجمهور)", isCorrect: true },
+          { text: "Source (المصدر)، Message (الرسالة)، و Channel (القناة)", isCorrect: false },
+          { text: "Who (المرسل)، Says What (الرسالة)، و Effect (التأثير)", isCorrect: false },
+          { text: "Encoder (المشفر)، Interpreter (المفسر)، و Decoder (مفكك الرمز)", isCorrect: false }
+        ],
+        hint: "أرسطو ربط الإقناع بشخصية الخطيب (إيتوس)، وبالبراهين المنطقية (لوغوس)، وبمشاعر المتلقين (باتوس).",
+        explanation: "صحيح! أرسطو ميز بين ثلاث ركائز للإقناع: مصداقية الخطيب (Ethos)، البرهان العقلي (Logos)، والجانب العاطفي للجمهور (Pathos)."
+      },
+      // 2. أرسطو تطبيقي
+      {
+        category: "أرسطو (Aristotle)",
+        context: "سيناريو تطبيقي (ص 25)",
+        scenario: "في حملة انتخابية، حرص المرشح السياسي في مطلع خطابه على إبراز نزاهته وخبرته الطويلة في خدمة المجتمع، ثم استخدم عبارات مشحونة بالأمل واستنهض مشاعر الفخر لدى الناخبين دون التركيز على الأرقام.",
+        prompt: "أي عنصرين من عناصر نموذج أرسطو اعتمد عليهما المرشح بوضوح في هذا الموقف؟",
+        options: [
+          { text: "الخطيب (Ethos) والموضوع العاطفي (Pathos)", isCorrect: true },
+          { text: "البرهان المنطقي (Logos) والنتيجة فقط", isCorrect: false },
+          { text: "التشويش والقناة الميكانيكية", isCorrect: false },
+          { text: "رجع الصدى وحاسة اللمس", isCorrect: false }
+        ],
+        hint: "المرشح ركز على إثبات مصداقيته الشخصية (Ethos) وتحريك عواطف الجماهير ومشاعرهم (Pathos) متجاوزاً الإحصائيات والأدلة المنطقية (Logos).",
+        explanation: "ممتاز! اعتمد على إبراز مصداقيته وسلطته الأخلاقية (Ethos)، واستثارة العواطف والمشاعر الجمعية للجمهور (Pathos)."
+      },
+      // 3. بيرلو مفهومي
+      {
+        category: "ديفيد بيرلو (Berlo 1960)",
+        context: "سؤال مفهومي (ص 27 - 28)",
+        scenario: "يقوم نموذج ديفيد بيرلو (SMCR) على فكرة أن المصدر (Source) والمتلقي (Receiver) يتشابهان تماماً ويخضعان لنفس العوامل المؤثرة في عملية التشفير وفك التشفير.",
+        prompt: "ما هي العوامل الأربعة المشتركة التي لخصها بيرلو؟",
+        options: [
+          { text: "مهارات الاتصال، الاتجاهات، مستوى المعرفة، والنظام الاجتماعي والثقافي", isCorrect: true },
+          { text: "الصوت، الضوء، الإشارات الكهربائية، ونبضات الدماغ", isCorrect: false },
+          { text: "التحكم، تحليل المضمون، دراسة الوسيلة، وقياس التأثير", isCorrect: false },
+          { text: "المنطق، العاطفة، البرهان، والنتيجة الختامية", isCorrect: false }
+        ],
+        hint: "راجع ص 28: ذكر بيرلو (Communication skills, Attitudes, Knowledge level, Position within a social-cultural system).",
+        explanation: "أحسنت! يتأثر الطرفان بنفس المحددات: مهارات التواصل، المواقف تجاه الجمهور، الرصيد المعرفي، والموقع في النظام الاجتماعي والثقافي."
+      },
+      // 4. بيرلو القنوات
+      {
+        category: "ديفيد بيرلو (Berlo 1960)",
+        context: "سؤال مفهومي (ص 28)",
+        scenario: "يتميز نموذج بيرلو برؤية خاصة لتعريف قناة الاتصال (Channel) تختلف عن النماذج الهندسية الآلية.",
+        prompt: "كيف حدد بيرلو القنوات في نموذجه؟",
+        options: [
+          { text: "ربط القنوات بحواس الإنسان الخمس (الرؤية، السمع، اللمس، الشم، والتذوق)", isCorrect: true },
+          { text: "حصرها فقط في الكابلات السلكية والموجات اللاسلكية", isCorrect: false },
+          { text: "اعتبر أن القناة هي فقط الصحافة الورقية والإذاعة", isCorrect: false },
+          { text: "دمج القناة والرسالة كعنصر واحد لا ينفصل", isCorrect: false }
+        ],
+        hint: "ينص نموذج بيرلو على أن الرسالة تصل للمتلقي من خلال الحواس الخمس للإنسان (Seeing, Hearing, Touching, Smelling, Tasting).",
+        explanation: "صحيح تماماً! بيرلو ربط القنوات بحواس الإنسان الخمس، مؤكداً أن الرسائل تصل للإنسان عبر البصر والسمع واللمس والشم والتذوق."
+      },
+      // 5. بيرلو نقد
+      {
+        category: "ديفيد بيرلو (Berlo 1960)",
+        context: "نقد وتحديات (ص 30)",
+        scenario: "على الرغم من الانتشار الواسع لنموذج بيرلو في ستينيات القرن العشرين، إلا أن الباحثين وجهوا له انتقادات جوهرية في تفسير الواقع الاتصالي.",
+        prompt: "ما هو أبرز مأخذ ونقد وُجّه لنموذج بيرلو حسب المطبوعة؟",
+        options: [
+          { text: "الافتقار إلى التغذية الراجعة (Feedback) والتبسيط المفرط بتجاهل الضوضاء والسياق", isCorrect: true },
+          { text: "تعقيده الرياضي وصعوبة تطبيقه على البشر", isCorrect: false },
+          { text: "تركيزه الزائد على الآلات والهواتف بدلاً من الإنسان", isCorrect: false },
+          { text: "إلغاؤه لدور المصدر في صياغة الرسالة", isCorrect: false }
+        ],
+        hint: "النموذج خطي يسير في اتجاه واحد من المرسل للمستقبل دون أن يوضح كيف يستجيب المتلقي، متجاهلاً التشويش وعوامل السياق.",
+        explanation: "إجابة دقيقة! عيب نموذج بيرلو الأكبر هو خلوه من التغذية الراجعة وإهماله لعوامل التشويش والبيئة التفاعلية."
+      },
+      // 6. لاسويل مقال
+      {
+        category: "هارولد لاسويل (Lasswell 1948)",
+        context: "سؤال توثيقي (ص 31)",
+        scenario: "يعد نموذج هارولد لاسويل من أكثر النماذج تأثيراً في بحوث الاتصال الجماهيري والسياسي.",
+        prompt: "في أي دراسة شهيرة قدّم لاسويل نموذجه الخماسي عام 1948؟",
+        options: [
+          { text: "مقالته الشهيرة: 'بنية ووظيفة الاتصال في المجتمع'", isCorrect: true },
+          { text: "كتاب: 'فن الخطابة والبيان'", isCorrect: false },
+          { text: "دراسة: 'النظرية الرياضية للاتصال السلكي'", isCorrect: false },
+          { text: "مؤلف: 'عملية الاتصال ومسارات التأثير المتبادل'", isCorrect: false }
+        ],
+        hint: "راجع ص 31: قدم لاسويل نموذجه عام 1948 في مقالته المعنونة 'بنية ووظيفة الاتصال في المجتمع'.",
+        explanation: "أحسنت! نشر لاسويل صيغته الرائدة في مقالته 'The Structure and Function of Communication in Society' عام 1948."
+      },
+      // 7. لاسويل الإضافة
+      {
+        category: "هارولد لاسويل (Lasswell 1948)",
+        context: "سؤال مفهومي (ص 31 - 32)",
+        scenario: "عُرف نموذج لاسويل بصيغته التساؤلية (من؟ يقول ماذا؟ بأي وسيلة؟ لمن؟ وبأي تأثير؟).",
+        prompt: "ما العنصر الجديد الذي ركز عليه لاسويل ومثّل نقلة في الدراسات الإعلامية؟",
+        options: [
+          { text: "عنصر التأثير (With what effect?) ونتائج الرسالة على المتلقي", isCorrect: true },
+          { text: "عنصر الشفرة الرقمية واللوغاريتمات", isCorrect: false },
+          { text: "حلقات التغذية الراجعة المزدوجة", isCorrect: false },
+          { text: "مصداقية الخطيب الأخلاقية فقط", isCorrect: false }
+        ],
+        hint: "أهم ما يميز لاسويل هو اهتمامه البالغ بنتيجة الاتصال وتأثير الرسالة (With what effect) على معارف وسلوك الجمهور.",
+        explanation: "رائع! إدخال عنصر 'وبأي تأثير؟' هو الإسهام الأبرز لنموذج لاسويل، حيث وجه الباحثين لدراسة وقياس أثر وسائل الإعلام."
+      },
+      // 8. لاسويل تطبيقي
+      {
+        category: "هارولد لاسويل (Lasswell 1948)",
+        context: "سيناريو تطبيقي (ص 31 - 32)",
+        scenario: "يقوم فريق بحثي بفحص محتوى نشرات الأخبار المتلفزة (Says What) ثم قياس التغير في سلوك المشاهدين بعد المشاهدة (With what effect).",
+        prompt: "أي حقلين من حقول البحث يقابلان هذين العنصرين في نموذج لاسويل؟",
+        options: [
+          { text: "تحليل المحتوى (Content Analysis) ودراسات التأثير (Effect Analysis)", isCorrect: true },
+          { text: "تحليل السيطرة وتحليل القناة فقط", isCorrect: false },
+          { text: "الهندسة الصوتية وتحليل الضوضاء", isCorrect: false },
+          { text: "علم البلاغة الكلاسيكي", isCorrect: false }
+        ],
+        hint: "يقول ماذا تقابل تحليل المحتوى، وبأي تأثير تقابل دراسات الأثر والتأثير الإعلامي.",
+        explanation: "صحيح! كل سؤال عند لاسويل يقابل حقلاً بحثياً: 'يقول ماذا' = تحليل المحتوى، و'بأي تأثير' = دراسات قياس التأثير."
+      },
+      // 9. شانون وويفر منشأ
+      {
+        category: "شانون وويفر (Shannon & Weaver 1948)",
+        context: "سؤال تاريخي ومفهومي (ص 33 - 34)",
+        scenario: "طُوّر نموذج شانون وويفر في الأصل لحل مشكلات غير مرتبطة بالتواصل الاجتماعي الإنساني في بدايته.",
+        prompt: "ما هو المنشأ والسياق التقني الذي تبلور فيه هذا النموذج؟",
+        options: [
+          { text: "أبحاث هندسية ورياضية في مختبرات بل للهاتف (Bell Labs) لنقل أقصى قدر من الإشارات", isCorrect: true },
+          { text: "أبحاث الحملات الدعائية في الانتخابات الرئاسية الأمريكية", isCorrect: false },
+          { text: "دراسات إثنوغرافية حول تفاعل القبائل البدائية", isCorrect: false },
+          { text: "ورشات تدريبية لتطوير الخطابة في الجامعات الأوروبية", isCorrect: false }
+        ],
+        hint: "كلود شانون كان مهندساً ورياضياتياً في مختبرات بيل للهاتف وكان يبحث سعة القنوات في نقل الإشارات دون تلف.",
+        explanation: "أحسنت! نشأ النموذج في مختبرات بل (Bell Telephone Laboratories) لبحث المسائل الرياضية والهندسية لنقل الإشارات وتفادي تلفها."
+      },
+      // 10. شانون وويفر الضوضاء
+      {
+        category: "شانون وويفر (Shannon & Weaver 1948)",
+        context: "سؤال مفهومي (ص 34)",
+        scenario: "يُنسب لنموذج شانون وويفر الفضل في إدخال مفهوم محوري اعتبره المنظرون أهم عامل لحدوث خلل وظيفي في الاتصال.",
+        prompt: "ما هو هذا المفهوم الجوهري الذي أدخله شانون وويفر؟",
+        options: [
+          { text: "مصدر الضوضاء والتشويش (Noise Source) في القناة", isCorrect: true },
+          { text: "المسؤولية الاجتماعية والمجتمعية", isCorrect: false },
+          { text: "تطابق المعاني الوجدانية", isCorrect: false },
+          { text: "البنية السيميائية للرموز", isCorrect: false }
+        ],
+        hint: "راجع ص 34: أول نموذج يشير لعامل خلل وظيفي واحد وهو 'الضوضاء والتشويش' التي تتعرض لها الإشارة أثناء انتقالها في القناة.",
+        explanation: "ممتاز! يعد إدخال 'الضوضاء / التشويش' (Noise) الإضافة الكبرى لهذا النموذج لتفسير عدم تطابق الإشارة المرسلة مع المستلمة."
+      },
+      // 11. شانون وويفر تطبيقي
+      {
+        category: "شانون وويفر (Shannon & Weaver 1948)",
+        context: "سيناريو تطبيقي (ص 34 - 35)",
+        scenario: "أثناء بث محاضرة عبر الراديو، تسببت عاصفة رعدية في تداخل كهرومغناطيسي أدّى إلى سماع صوت صفير شتّت الكلمات الأصلية للمحاضر وجعلها غير مفهومة للمستمعين.",
+        prompt: "وفق نموذج شانون وويفر، كيف نُصنّف هذا الخلل وأين حدث تحديداً؟",
+        options: [
+          { text: "تشويش (Noise) خارجي أثّر على الإشارة المنقولة داخل القناة (Channel)", isCorrect: true },
+          { text: "نقص في الاتجاهات النفسية لدى المتلقي في الوجهة", isCorrect: false },
+          { text: "خلل في كتابة نص المحاضرة عند مصدر المعلومات", isCorrect: false },
+          { text: "غياب الإقناع العاطفي (Pathos)", isCorrect: false }
+        ],
+        hint: "العاصفة مثلت مصدر ضوضاء وتداخل (Noise) اعترض القناة اللاسلكية فغيّر شكل الإشارة قبل وصولها للمستقبل.",
+        explanation: "صحيح! هذا تجسيد مثالي للتشويش (Noise Source) في القناة الذي يغير الإشارة الهندسية ويؤدي لاختلافها عند جهاز الاستقبال."
+      },
+      // 12. ديفلور التعديل
+      {
+        category: "ملفين ديفلور (DeFleur 1970)",
+        context: "سؤال مفهومي (ص 35 - 36)",
+        scenario: "قام ملفين ديفلور عام 1970 بتطوير نموذج شانون وويفر لاستكمال نقائصه وتقديم معالجة أكثر ملاءمة للتواصل البشري.",
+        prompt: "ما التعديل البنيوي الجوهري الذي أضافه ديفلور للنموذج؟",
+        options: [
+          { text: "إضافة حلقة التغذية الراجعة (Feedback loop) وجهاز رجع الصدى", isCorrect: true },
+          { text: "إلغاء جهاز الإرسال والاستقبال والاكتفاء بالمصدر فقط", isCorrect: false },
+          { text: "حذف عنصر الضوضاء والتشويش نهائياً", isCorrect: false },
+          { text: "تحويل الاتصال إلى نموذج خطي مغلق لا يقبل التكرار", isCorrect: false }
+        ],
+        hint: "ديفلور استكمل خطية شانون بإضافة مسار عودة يسمى التغذية الراجعة (Feedback loop) مع جهاز رجع الصدى.",
+        explanation: "أحسنت! أضاف ديفلور حلقة التغذية الراجعة وجهاز رجع الصدى لتمكين المصدر من تلقي ردود الفعل وتعديل رسالته."
+      },
+      // 13. ديفلور تطابق المعاني
+      {
+        category: "ملفين ديفلور (DeFleur 1970)",
+        context: "سؤال مفهومي دقيق (ص 35 - 36)",
+        scenario: "أكد ديفلور أن عملية الاتصال تبدأ بتحويل 'المعنى' إلى رسالة ثم إلى معلومات، ليعيد المستقبل فك تشفيرها إلى معنى.",
+        prompt: "ما هي النتيجة المثالية التي تسعى التغذية الراجعة لتحقيقها وفق نموذج ديفلور؟",
+        options: [
+          { text: "تحقيق تطابق المعاني أو التماثل (Isomorphism) بين المعنى المرسل والمستلم", isCorrect: true },
+          { text: "إجبار المتلقي على الامتثال دون فهم المعنى", isCorrect: false },
+          { text: "زيادة سرعة نقل الإشارات السلكية لأقصى حد", isCorrect: false },
+          { text: "منع أي استجابة أو رد فعل من جانب الجمهور", isCorrect: false }
+        ],
+        hint: "راجع ص 35-36: يهدف رجع الصدى لزيادة إمكانية تحقيق التطابق بين المعاني (التماثل)، رغم أنه نادراً ما يكون تاماً.",
+        explanation: "ممتاز! الغاية الجوهرية لدى ديفلور هي تمكين المصدر من تعديل أسلوبه عبر التغذية الراجعة للوصول إلى تطابق وتماثل المعاني (Isomorphism)."
+      },
+      // 14. أوزغود وشرام الدائرية
+      {
+        category: "أوزغود وشرام (Osgood & Schramm 1954)",
+        context: "سؤال مفهومي (ص 36 - 37)",
+        scenario: "يمثل نموذج أوزغود وولبر شرام (1954) ثورة على النماذج السابقة التي كانت تصف الاتصال كخط مستقيم ذي بداية ونهاية.",
+        prompt: "ما الخاصية الهيكلية التي ينفرد بها هذا النموذج؟",
+        options: [
+          { text: "أنه نموذج دائري (Circular) يمارس فيه الطرفان نفس الوظائف (تشفير، تفسير، وفك تشفير)", isCorrect: true },
+          { text: "أنه نموذج أحادي صارم ينطلق من مرسل مسيطر لمتلقٍ سلبي", isCorrect: false },
+          { text: "أنه يقتصر على نقل المعلومات الرياضية فقط عبر الحواسيب", isCorrect: false },
+          { text: "أنه يلغي الرسالة ويعتمد على الحدس الباطني فقط", isCorrect: false }
+        ],
+        hint: "راجع ص 36-37: النموذج دائري للغاية، وأطراف الاتصال متساوية وتؤدي وظائف متطابقة (تشفير، فك تشفير، وتفسير المعنى).",
+        explanation: "صحيح! نموذج أوزغود وشرام دائري متكافئ، حيث يلعب كل طرف دور المشفر والمفسر ومفكك الشفرة بالتناوب المستمر."
+      },
+      // 15. أوزغود وشرام تطبيقي
+      {
+        category: "أوزغود وشرام (Osgood & Schramm 1954)",
+        context: "سيناريو تطبيقي (ص 36 - 37)",
+        scenario: "في جلسة إرشاد وتوجيه بين أستاذ وطالب، يشرح الأستاذ فكرة (يشفر)، يستمع الطالب ويفهمها (يفك التشفير ويفسر) ثم يطرح سؤالاً توضيحياً (يشفر)، ليصبح الأستاذ مستمعاً ومفسراً ثم مجيباً.",
+        prompt: "أي نموذج من النماذج الستة يصف هذا التفاعل التبادلي الدائري المتكافئ بأدق صورة؟",
+        options: [
+          { text: "نموذج أوزغود وشرام الدائري (Osgood & Schramm Circular Model)", isCorrect: true },
+          { text: "النموذج الخطي لأرسطو (Aristotle's Model)", isCorrect: false },
+          { text: "نموذج شانون وويفر الميكانيكي الأحادي", isCorrect: false },
+          { text: "صيغة هارولد لاسويل الأحادية", isCorrect: false }
+        ],
+        hint: "العملية هنا دائرية مستمرة بين طرفين متساويين يتبادلان أدوار التشفير والتفسير وفك التشفير ورجع الصدى.",
+        explanation: "أحسنت! هذا التبادل الحي المستمر هو جوهر نموذج أوزغود وشرام الدائري الذي يركز على سلوك وتفسير الأطراف الفاعلة المتكافئة."
+      }
+    ];
+
+    /* ==========================================================
+       Stage 3 Data: Comparison Table Data (Pages 23 - 37)
+       ========================================================== */
+    const comparisonTableData = [
+      {
+        name: "النموذج الخطي لأرسطو<br><bdi class='foreign-term'>Aristotle's Model</bdi>",
+        year: "منذ 2300 عام<br>(كتاب فن الخطابة)",
+        nature: "خطي أحادي (خطابي بلاغي)",
+        elements: "الخطيب (Ethos)، الخطبة/البرهان (Logos)، الجمهور/الموضوع (Pathos)، والنتيجة (Conclusion)",
+        contribution: "أقدم نموذج في تاريخ الفكر الإنساني؛ أسس لقواعد الإقناع وبناء الحجة الخطابية والتأثير في الجماهير.",
+        critiques: "أحادي الاتجاه، يفتقر للتغذية الراجعة الفورية المنظمة، والاعتماد المفرط على المنطق قد يهمل المشاعر أو العكس."
+      },
+      {
+        name: "نموذج ديفيد بيرلو<br><bdi class='foreign-term'>Berlo's SMCR</bdi>",
+        year: "1960",
+        nature: "خطي اجتماعي وسلوكي",
+        elements: "المصدر (Source)، الرسالة (Message)، القناة (Channel)، والمتلقي (Receiver)",
+        contribution: "أبرز تماثل المصدر والمتلقي في الخضوع لـ 4 عوامل (مهارات، اتجاهات، معرفة، وثقافة)، وربط القنوات بالحواس الخمس.",
+        critiques: "الافتقار التام لعنصر التغذية الراجعة (Feedback)، إهمال عوامل الضوضاء والتشويش، وافتراض دور سلبي للمتلقي."
+      },
+      {
+        name: "نموذج هارولد لاسويل<br><bdi class='foreign-term'>Lasswell's Model</bdi>",
+        year: "1948",
+        nature: "خطي إعلامي وسياسي",
+        elements: "من؟ (Who)، يقول ماذا؟ (Says What)، بأي وسيلة؟ (In Which Channel)، لمن؟ (To Whom)، وبأي تأثير؟ (With what effect)",
+        contribution: "إدخال عنصر الأثر (Effect) لأول مرة؛ وتأسيس مجالات البحث الإعلامي (تحليل السيطرة، المحتوى، القنوات، والجمهور).",
+        critiques: "خطي وأحادي التدفق، يفتقر للتغذية الراجعة، يتجاهل السياق والظروف المحيطة، ويهمل التشويش الخارجي."
+      },
+      {
+        name: "نموذج شانون وويفر الرياضي<br><bdi class='foreign-term'>Shannon & Weaver</bdi>",
+        year: "1948 / 1949",
+        nature: "خطي ميكانيكي / هندسي",
+        elements: "مصدر المعلومات، جهاز الإرسال، القناة، مصدر الضوضاء (Noise)، جهاز الاستقبال، والوجهة",
+        contribution: "أول نموذج يدخل مفهوم 'التشويش والضوضاء' (Noise) كعامل خلل يسبب اختلاف الإشارة المرسلة عن المستلمة.",
+        critiques: "صُمم للأجهزة والهواتف والاتصالات السلكية؛ يفتقر للبعد الإنساني النفسي والاجتماعي ويغيب عنه رجع الصدى."
+      },
+      {
+        name: "تطوير ملفين ديفلور<br><bdi class='foreign-term'>DeFleur's Development</bdi>",
+        year: "1970",
+        nature: "دائري تفاعلي استكمالي",
+        elements: "المصدر، الإرسال، القناة، الاستقبال، الوجهة، وحلقة التغذية الراجعة (Feedback) وجهاز رجع الصدى",
+        contribution: "استكمال نموذج شانون بإضافة التغذية الراجعة ومفهوم 'تطابق المعاني' (Isomorphism) بين الطرفين عبر تعديل الرسالة.",
+        critiques: "في الاتصال الجماهيري تكون التغذية الراجعة غير مباشرة أو متأخرة، وتطابق المعاني نادراً ما يكون تاماً ومثالياً."
+      },
+      {
+        name: "نموذج أوزغود وولبر شرام<br><bdi class='foreign-term'>Osgood & Schramm</bdi>",
+        year: "1954",
+        nature: "دائري تفاعلي غير خطي",
+        elements: "أطراف متساوية تمارس بالتزامن: التشفير (Encoder)، التفسير (Interpreter)، وفك التشفير (Decoder) وتبادل الرسائل والرجع",
+        contribution: "كسر النمط الخطي التقليدي؛ الاتصال عملية دائرية متكافئة لا بداية ولا نهاية لها تركز على السلوك الإنساني وتفسير المعنى.",
+        critiques: "يفترض التكافؤ التام والقدرة المستمرة على تبادل الأدوار، وهو ما ينطبق على الاتصال الشخصي أكثر من الجماهيري."
+      }
+    ];
+
+    /* ==========================================================
+       Quiz Engine Logic (Stage 2)
+       ========================================================== */
+    let currentQuizList = [];
+    let qIndex = 0;
+    let quizScore = 0;
+    let isCurrentQuestionAnswered = false;
+    let attemptsCount = 0;
+
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function initQuizEngine() {
+      currentQuizList = [...quizQuestions];
+      qIndex = 0;
+      quizScore = 0;
+      document.getElementById('liveQuizScore').textContent = '0';
+      renderQuizQuestion();
+    }
+
+    function restartQuiz() {
+      currentQuizList = shuffle(quizQuestions);
+      qIndex = 0;
+      quizScore = 0;
+      document.getElementById('liveQuizScore').textContent = '0';
+      switchStage(2);
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const q = currentQuizList[qIndex];
+      isCurrentQuestionAnswered = false;
+      attemptsCount = 0;
+
+      const total = currentQuizList.length;
+      const currentNum = qIndex + 1;
+      document.getElementById('qCounter').textContent = `السؤال ${currentNum} من ${total}`;
+      document.getElementById('qCategory').textContent = `النموذج: ${q.category}`;
+
+      const percent = Math.round((currentNum / total) * 100);
+      document.getElementById('quizProgressFill').style.width = `${percent}%`;
+      document.getElementById('qPercent').textContent = `${percent}%`;
+
+      document.getElementById('qContextType').textContent = q.context;
+      document.getElementById('qScenarioText').textContent = q.scenario;
+      document.getElementById('qPromptText').textContent = q.prompt;
+
+      const optionsGrid = document.getElementById('qOptionsGrid');
+      optionsGrid.innerHTML = '';
+      const letters = ['أ', 'ب', 'جـ', 'د'];
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="option-letter">${letters[idx] || '•'}</span>
+            <span>${opt.text}</span>
+          </div>
+          <span style="font-size: 0.8rem; color: #94a3b8;">اختيار</span>
+        `;
+        btn.addEventListener('click', () => handleQuizOptionClick(idx, btn, opt));
+        optionsGrid.appendChild(btn);
+      });
+
+      const fb = document.getElementById('qFeedbackBox');
+      fb.classList.remove('show', 'hint', 'success');
+      document.getElementById('nextQuizBtn').disabled = true;
+    }
+
+    function handleQuizOptionClick(idx, btn, opt) {
+      if (isCurrentQuestionAnswered) return;
+      attemptsCount++;
+
+      const fb = document.getElementById('qFeedbackBox');
+      const fbIcon = document.getElementById('qFeedbackIcon');
+      const fbText = document.getElementById('qFeedbackText');
+      const nextBtn = document.getElementById('nextQuizBtn');
+      const q = currentQuizList[qIndex];
+
+      fb.classList.remove('show', 'hint', 'success');
+
+      if (opt.isCorrect) {
+        isCurrentQuestionAnswered = true;
+        btn.classList.add('correct');
+        playSoundSuccess();
+
+        if (attemptsCount === 1) {
+          quizScore++;
+          document.getElementById('liveQuizScore').textContent = quizScore;
+        }
+
+        document.querySelectorAll('#qOptionsGrid .option-btn').forEach(b => b.disabled = true);
+
+        fbIcon.textContent = '🎉';
+        fbText.innerHTML = `<strong>إجابة صحيحة!</strong> ${q.explanation}`;
+        fb.classList.add('show', 'success');
+        nextBtn.disabled = false;
+
+      } else {
+        playSoundWrong();
+        btn.classList.add('wrong', 'shake-anim');
+        setTimeout(() => btn.classList.remove('shake-anim'), 450);
+
+        fbIcon.textContent = '💡';
+        fbText.innerHTML = `<strong>تلميح وفق المطبوعة:</strong> ${q.hint}`;
+        fb.classList.add('show', 'hint');
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (qIndex < currentQuizList.length - 1) {
+        qIndex++;
+        renderQuizQuestion();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      switchStage(3);
+
+      const total = currentQuizList.length;
+      const percent = Math.round((quizScore / total) * 100);
+
+      document.getElementById('finalScoreVal').textContent = `${quizScore} / ${total}`;
+      document.getElementById('finalPercentVal').textContent = `${percent}%`;
+
+      const badge = document.getElementById('resultsBadgeIcon');
+      const title = document.getElementById('resultsTitle');
+      const msg = document.getElementById('resultsFeedbackMsg');
+
+      if (percent === 100) {
+        badge.textContent = '🌟';
+        title.textContent = 'علامة كاملة! خبير متمكن في نظريات ونماذج الاتصال';
+        msg.textContent = 'إتقان استثنائي وعميق لكافة المفاهيم والعناصر والأبعاد الفلسفية والهندسية للنماذج الستة الواردة في المطبوعة.';
+        playSoundFanfare();
+        startConfetti(4500);
+      } else if (percent >= 80) {
+        badge.textContent = '🏆';
+        title.textContent = 'أداء ممتاز جداً!';
+        msg.textContent = 'أحسنت! استيعاب رائع لمعظم الفروق الدقيقة بين النماذج الخطية والدائرية وإسهامات المنظرين.';
+        playSoundSuccess();
+        startConfetti(2500);
+      } else if (percent >= 60) {
+        badge.textContent = '👍';
+        title.textContent = 'مستوى جيد ومقبول!';
+        msg.textContent = 'لديك فهم عام جيد، راجع جدول المقارنة أدناه لضبط الفروق الدقيقة بين النماذج ثم أعد المحاولة.';
+        playSoundSuccess();
+      } else {
+        badge.textContent = '📖';
+        title.textContent = 'فرصة رائعة للمراجعة والتعلم!';
+        msg.textContent = 'ننصحك بمراجعة مستكشف النماذج وجدول المقارنة أدناه للتركيز على الفروق الجوهرية ثم خوض الاختبار مجدداً.';
+        playSoundWrong();
+      }
+    }
+
+    function populateComparisonTable() {
+      const tbody = document.getElementById('comparisonTableBody');
+      tbody.innerHTML = '';
+
+      comparisonTableData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${row.name}</strong></td>
+          <td><span class="model-year-badge">${row.year}</span></td>
+          <td><span class="model-nature-tag">${row.nature}</span></td>
+          <td>${row.elements}</td>
+          <td>${row.contribution}</td>
+          <td style="color: #9a3412;">${row.critiques}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    /* ==========================================================
+       Celebration Confetti
+       ========================================================== */
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function startConfetti(durationMs = 4000) {
+      confettiParticles = [];
+      const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+      for (let i = 0; i < 90; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * -confettiCanvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 4 + 3,
+          rot: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 8
+        });
+      }
+
+      if (!confettiAnimId) animateConfetti();
+
+      setTimeout(() => {
+        confettiParticles = [];
+      }, durationMs);
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = 0; i < confettiParticles.length; i++) {
+        const p = confettiParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vRot;
+
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rot * Math.PI) / 180);
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        confettiCtx.restore();
+
+        if (p.y > confettiCanvas.height) {
+          p.y = -20;
+          p.x = Math.random() * confettiCanvas.width;
+        }
+      }
+
+      if (confettiParticles.length > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiAnimId = null;
+      }
+    }
+
+    /* ==========================================================
+       Initialization on Load
+       ========================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadModel(0);
+      initQuizEngine();
+      populateComparisonTable();
+    });
+  </script>
+</body>
+</html>
